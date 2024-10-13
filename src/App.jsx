@@ -376,7 +376,7 @@ const Projects = [
   {
     title: "Project One",
     description: "A brief description of Project One.",
-    image: "/images/project-one.jpg",
+    image: "./assets/Kanishk.jpg",
     link: "#",
     github: "#",
     technologies: ["React", "Node.js", "CSS"],
@@ -384,7 +384,7 @@ const Projects = [
   {
     title: "Project Two",
     description: "A brief description of Project Two.",
-    image: "/images/project-two.jpg",
+    image: "./assets/Kanishk.jpg",
     link: "#",
     github: "#",
     technologies: ["Vue.js", "Firebase", "Sass"],
@@ -392,7 +392,7 @@ const Projects = [
   {
     title: "Project Three",
     description: "A brief description of Project Three.",
-    image: "/images/project-three.jpg",
+    image: "./assets/Kanishk.jpg",
     link: "#",
     github: "#",
     technologies: ["Angular", "Express", "MongoDB"],
