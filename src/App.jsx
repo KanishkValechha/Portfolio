@@ -5,7 +5,14 @@ import { Link } from "react-scroll";
 import { useInView } from "react-intersection-observer";
 import { Sun, Moon, Send } from "lucide-react";
 import "./index.css";
-import { Award, Star, Trophy, Target } from "lucide-react";
+import {
+  Award,
+  Star,
+  Trophy,
+  Target,
+  ChevronRight,
+  ExternalLink,
+} from "lucide-react";
 
 
 import ReactLogo from "./assets/react-logo.png";
@@ -370,29 +377,30 @@ const SkillCard = ({ skill, index, inView, darkMode }) => {
 };
 const Projects = [
   {
-    title: "E-commerce Platform",
-    description:
-      "A full-stack e-commerce solution with React and Node.js, featuring real-time inventory management and AI-powered product recommendations.",
-    image: "/path-to-ecommerce-image.jpg",
-    technologies: ["React", "Node.js", "MongoDB", "Redux", "Stripe"],
-    link: "#",
+    title: "Project One",
+    description: "A brief description of Project One.",
+    image: "/images/project-one.jpg",
+    link: "https://example.com/project-one",
+    github: "https://github.com/username/project-one",
+    technologies: ["React", "Node.js", "CSS"],
   },
   {
-    title: "AI Chatbot",
-    description:
-      "An intelligent chatbot powered by machine learning, capable of natural language processing and integrated with multiple platforms.",
-    image: "/path-to-chatbot-image.jpg",
-    technologies: ["Python", "TensorFlow", "NLP", "Flask", "Docker"],
-    link: "#",
+    title: "Project Two",
+    description: "A brief description of Project Two.",
+    image: "/images/project-two.jpg",
+    link: "https://example.com/project-two",
+    github: "https://github.com/username/project-two",
+    technologies: ["Vue.js", "Firebase", "Sass"],
   },
   {
-    title: "Portfolio Website",
-    description:
-      "A responsive portfolio website showcasing my work, built with modern web technologies and featuring smooth animations.",
-    image: "/path-to-portfolio-image.jpg",
-    technologies: ["React", "Framer Motion", "Tailwind CSS", "Vercel"],
-    link: "#",
+    title: "Project Three",
+    description: "A brief description of Project Three.",
+    image: "/images/project-three.jpg",
+    link: "https://example.com/project-three",
+    github: "https://github.com/username/project-three",
+    technologies: ["Angular", "Express", "MongoDB"],
   },
+  // Add more projects as needed
 ];
 
 const experiences = [
@@ -567,38 +575,68 @@ const ExperienceCard = ({ experience, index, inView, darkMode }) => {
 
 const ProjectsSection = ({ darkMode }) => {
   const [ref, inView] = useInView({
-    triggerOnce: true,
+    triggerOnce: false,
     threshold: 0.1,
   });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12,
+      },
+    },
+  };
 
   return (
     <section
       id="projects"
       ref={ref}
-      className={`py-20 pt-36 relative overflow-hidden $`}
+      className={`py-20 pt-36 relative overflow-hidden ${
+        darkMode ? "bg-gray-900" : "bg-gray-100"
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.5}}
-          className={`text-5xl font-extrabold text-center mb-16 tracking-tight ${
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className={`text-7xl font-extrabold text-center mb-24 tracking-tight ${
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
           Featured Projects
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="space-y-32"
+        >
           {Projects.map((project, index) => (
             <ProjectCard
               key={project.title}
               project={project}
               index={index}
-              inView={inView}
               darkMode={darkMode}
+              variants={itemVariants}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
       <div
         className={`absolute inset-0 ${
@@ -611,70 +649,126 @@ const ProjectsSection = ({ darkMode }) => {
   );
 };
 
-const ProjectCard = ({ project, index, inView, darkMode }) => {
+const GitHubIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-5 w-5"
+  >
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+  </svg>
+);
+
+const ProjectCard = ({ project, index, darkMode, variants }) => {
+  const isEven = index % 2 === 0;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 1, delay: index * 0.5 }}
-      className={`${
-        darkMode ? "bg-gray-800 bg-opacity-50" : "bg-white bg-opacity-20"
-      } backdrop-filter backdrop-blur-lg rounded-2xl overflow-hidden shadow-xl transform hover:-translate-y-2 transition-all duration-300`}
+      variants={variants}
+      className={`flex flex-col ${
+        isEven ? "lg:flex-row" : "lg:flex-row-reverse"
+      } items-center gap-12`}
     >
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
-        <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">
+      <div className="w-full lg:w-3/5">
+        <motion.div
+          className="relative rounded-2xl overflow-hidden shadow-2xl group"
+          whileHover={{ scale: 1.03 }}
+          transition={{ duration: 0.3 }}
+        >
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-110"
+          />
+          <div
+            className={`absolute inset-0 ${
+              darkMode
+                ? "bg-gradient-to-t from-gray-900 to-transparent"
+                : "bg-gradient-to-t from-white to-transparent"
+            } opacity-70 group-hover:opacity-40 transition-opacity duration-300`}
+          ></div>
+          <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+        </motion.div>
+      </div>
+      <div className="w-full lg:w-2/5">
+        <h3
+          className={`text-4xl font-bold mb-6 ${
+            darkMode ? "text-white" : "text-gray-900"
+          }`}
+        >
           {project.title}
         </h3>
-      </div>
-      <div className="p-6">
-        <p className={`mb-4 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+        <p
+          className={`mb-8 text-xl leading-relaxed ${
+            darkMode ? "text-gray-300" : "text-gray-700"
+          }`}
+        >
           {project.description}
         </p>
-        <div className="mb-4">
-          <h4
-            className={`text-sm font-semibold mb-2 ${
-              darkMode ? "text-indigo-400" : "text-indigo-600"
-            }`}
-          >
-            Technologies Used:
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech) => (
-              <span
-                key={tech}
-                className={`px-2 py-1 rounded-full text-xs ${
-                  darkMode
-                    ? "bg-gray-700 text-indigo-300"
-                    : "bg-indigo-100 text-indigo-800"
-                }`}
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2 pb-4">
+          {project.technologies.map((tech) => (
+            <span
+              key={tech}
+              className={`px-3 py-1 rounded-full text-sm ${
+                darkMode
+                  ? "bg-gray-800 text-indigo-300"
+                  : "bg-white text-indigo-800"
+              }`}
+            >
+              {tech}
+            </span>
+          ))}
         </div>
-        <motion.a
-          href={project.link}
-          className={`inline-block px-6 py-2 rounded-md transition duration-300 ${
-            darkMode
-              ? "bg-indigo-600 text-white hover:bg-indigo-700"
-              : "bg-indigo-600 text-white hover:bg-indigo-700"
-          }`}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          View Project
-        </motion.a>
+        <div className="flex space-x-4">
+          <motion.a
+            href={project.link}
+            className={`inline-flex items-center px-8 py-4 rounded-full text-lg font-semibold transition duration-300 ${
+              darkMode
+                ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                : "bg-indigo-600 text-white hover:bg-indigo-700"
+            }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            View Project
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 ml-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </motion.a>
+          <motion.a
+            href={project.github}
+            className={`inline-flex items-center px-8 py-4 rounded-full text-lg font-semibold transition duration-300 ${
+              darkMode
+                ? "bg-gray-700 text-white hover:bg-gray-600"
+                : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+            }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            GitHub
+            <GitHubIcon className="ml-2" />
+          </motion.a>
+        </div>
       </div>
     </motion.div>
   );
 };
+
+
 
 
 const ContactForm = ({ darkMode }) => {
