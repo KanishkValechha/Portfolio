@@ -214,7 +214,6 @@ const HeroSection = ({ darkMode }) => {
               } rounded-full p-4 shadow-xl`}
             >
               <motion.svg
-                xmlns="http://www.w3.org/2000/svg"
                 className={`h-8 w-8 ${
                   darkMode ? "text-indigo-400" : "text-indigo-600"
                 }`}
@@ -649,7 +648,6 @@ const ProjectsSection = ({ darkMode }) => {
 
 const GitHubIcon = () => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -735,7 +733,6 @@ const ProjectCard = ({ project, index, darkMode, variants }) => {
           >
             View Project
             <svg
-              xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 ml-2"
               viewBox="0 0 20 20"
               fill="currentColor"
@@ -757,8 +754,8 @@ const ProjectCard = ({ project, index, darkMode, variants }) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            GitHub
-            <GitHubIcon className="ml-2" />
+            <span className="mr-2">GitHub</span>
+            <GitHubIcon className="" />
           </motion.a>
         </div>
       </div>
