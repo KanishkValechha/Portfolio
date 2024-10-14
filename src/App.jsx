@@ -1,14 +1,15 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import KanishkPhoto from "./assets/Kanishk.jpg";
 import { Link } from "react-scroll";
 import { useInView } from "react-intersection-observer";
-import { Sun, Moon, Send } from "lucide-react";
+import { Sun, Moon, Send, CheckCircle } from "lucide-react";
 import "./index.css";
 import { Award, Star, Trophy, Target } from "lucide-react";
 import Aconews from "./assets/aconews.png";
 import Healthdome from "./assets/HealthDome.png";
 import Stock from "./assets/Stock.png";
+import PropTypes from "prop-types";
 
 import ReactLogo from "./assets/react-logo.png";
 import CPPLogo from "./assets/cpp-logo.png";
@@ -30,6 +31,9 @@ import VSCodeLogo from "./assets/vscode-logo.png";
 import FirebaseLogo from "./assets/firebase.png";
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
+  Navbar.propTypes = {
+    darkMode: PropTypes.bool.isRequired,
+  };
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -826,8 +830,79 @@ const ProjectCard = ({ project, index, darkMode, variants }) => {
     </motion.div>
   );
 };
+const Alert = ({ children, className = "", type = "info" }) => {
+  const baseClasses =
+    "rounded-lg p-4 mb-4 flex flex-col items-start shadow-md transition-all duration-300 ease-in-out";
+  const typeClasses = {
+    info: "bg-blue-50 text-blue-800 border-l-4 border-blue-500",
+    success: "bg-green-50 text-green-800 border-l-4 border-green-500",
+    warning: "bg-yellow-50 text-yellow-800 border-l-4 border-yellow-500",
+    error: "bg-red-50 text-red-800 border-l-4 border-red-500",
+  };
+
+  return (
+    <div
+      className={`${baseClasses} ${typeClasses[type]} ${className}`}
+      role="alert"
+    >
+      {children}
+    </div>
+  );
+};
+
+const AlertTitle = ({ children, className = "" }) => {
+  return (
+    <h3 className={`text-lg font-semibold mb-1 ${className}`}>{children}</h3>
+  );
+};
+
+const AlertDescription = ({ children, className = "" }) => {
+  return <div className={`text-sm opacity-90 ${className}`}>{children}</div>;
+};
+
 
 const ContactForm = ({ darkMode }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [showPopup, setShowPopup] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://formspree.io/f/mbljjoka", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setShowPopup(true);
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setShowPopup(false), 3000);
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className={`py-20 pb-56 relative overflow-hidden`}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -898,7 +973,7 @@ const ContactForm = ({ darkMode }) => {
                 darkMode ? "text-gray-200" : "text-gray-800"
               }`}
             >
-              <form className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label
                     htmlFor="name"
@@ -912,6 +987,8 @@ const ContactForm = ({ darkMode }) => {
                     type="text"
                     id="name"
                     name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     className={`mt-1 w-full block h-9 py-4 px-2 rounded-md ${
                       darkMode
                         ? "bg-gray-700 border-gray-600 text-white"
@@ -922,6 +999,7 @@ const ContactForm = ({ darkMode }) => {
                         : "focus:border-indigo-300 focus:ring-indigo-200"
                     }`}
                     placeholder="Your Name"
+                    required
                   />
                 </div>
                 <div>
@@ -937,6 +1015,8 @@ const ContactForm = ({ darkMode }) => {
                     type="email"
                     id="email"
                     name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     className={`mt-1 h-9 py-4 px-2 block w-full rounded-md ${
                       darkMode
                         ? "bg-gray-700 border-gray-600 text-white"
@@ -947,6 +1027,7 @@ const ContactForm = ({ darkMode }) => {
                         : "focus:border-indigo-300 focus:ring-indigo-200"
                     }`}
                     placeholder="your@email.com"
+                    required
                   />
                 </div>
                 <div>
@@ -961,6 +1042,8 @@ const ContactForm = ({ darkMode }) => {
                   <textarea
                     id="message"
                     name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
                     rows="4"
                     className={`mt-1 block w-full py-2 px-3 rounded-md ${
                       darkMode
@@ -972,9 +1055,11 @@ const ContactForm = ({ darkMode }) => {
                         : "focus:border-indigo-300 focus:ring-indigo-200"
                     }`}
                     placeholder="Your message here..."
+                    required
                   ></textarea>
                 </div>
                 <motion.button
+                  type="submit"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className={`w-full font-bold py-2 px-4 rounded-md transition duration-300 ${
@@ -982,25 +1067,60 @@ const ContactForm = ({ darkMode }) => {
                       ? "bg-indigo-600 text-white hover:bg-indigo-700"
                       : "bg-indigo-600 text-white hover:bg-indigo-700"
                   }`}
+                  disabled={isSubmitting}
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </motion.button>
               </form>
             </div>
           </div>
         </motion.div>
       </div>
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            className="fixed bottom-4 right-4 z-50"
+          >
+            <Alert
+              className={`${
+                darkMode ? "bg-green-800 text-white" : "bg-green-100"
+              } w-72`}
+            >
+              <CheckCircle
+                className={`h-4 w-4 ${
+                  darkMode ? "text-green-400" : "text-green-600"
+                }`}
+              />
+              <AlertTitle
+                className={`${darkMode ? "text-green-100" : "text-green-800"}`}
+              >
+                Success!
+              </AlertTitle>
+              <AlertDescription
+                className={`${darkMode ? "text-green-200" : "text-green-700"}`}
+              >
+                Your message has been sent successfully.
+              </AlertDescription>
+            </Alert>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div
         className={`absolute inset-0 ${
           darkMode
             ? "bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800"
             : "bg-gradient-to-r from-indigo-500 via-pink-500 to-purple-500"
         } opacity-10`}
-        style={{ pointerEvents: "none" }} // Prevents overlay from blocking clicks
+        style={{ pointerEvents: "none" }}
       ></div>
     </section>
   );
 };
+
+
 const achievements = [
   {
     icon: <Trophy className="w-8 h-8" />,
