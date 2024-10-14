@@ -1,24 +1,33 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useAnimation } from "framer-motion";
 import KanishkPhoto from "./assets/Kanishk.jpg";
 import { Link } from "react-scroll";
 import { useInView } from "react-intersection-observer";
 import { Sun, Moon, Send } from "lucide-react";
 import "./index.css";
-import {
-  Award,
-  Star,
-  Trophy,
-  Target,
-} from "lucide-react";
-
+import { Award, Star, Trophy, Target } from "lucide-react";
+import Aconews from "./assets/aconews.png";
+import Healthdome from "./assets/HealthDome.png";
+import Stock from "./assets/Stock.png";
 
 import ReactLogo from "./assets/react-logo.png";
+import CPPLogo from "./assets/cpp-logo.png";
+import CLogo from "./assets/c-logo.png";
 import NodeLogo from "./assets/nodejs-logo.png";
 import JavaScriptLogo from "./assets/javascript-logo.png";
 import CSSLogo from "./assets/css-logo.png";
 import HTMLLogo from "./assets/html-logo.png";
 import PythonLogo from "./assets/python-logo.png";
+import GitLogo from "./assets/git-logo.png";
+import Docker from "./assets/docker-logo.png";
+import TailwindLogo from "./assets/tailwindcss-logo.png";
+import TypescriptLogo from "./assets/typescript-logo.png";
+import DjangoLogo from "./assets/django-logo.png";
+import SassLogo from "./assets/sass-logo.png";
+import NextjsLogo from "./assets/nextjs-logo.png";
+import MysqlLogo from "./assets/mysql-logo.png";
+import VSCodeLogo from "./assets/vscode-logo.png";
+import FirebaseLogo from "./assets/firebase.png";
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -48,31 +57,36 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-8">
-              {["Home", "Skills", "Experience", "Projects","Achievements", "Contact"].map(
-                (item) => (
-                  <Link
-                    key={item}
-                    to={item.toLowerCase()}
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                    className="cursor-pointer"
+              {[
+                "Home",
+                "Skills",
+                "Experience",
+                "Projects",
+                "Achievements",
+                "Contact",
+              ].map((item) => (
+                <Link
+                  key={item}
+                  to={item.toLowerCase()}
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}
+                  className="cursor-pointer"
+                >
+                  <motion.span
+                    className={`px-3 py-2 text-sm font-medium transition-colors duration-300 ${
+                      darkMode
+                        ? "text-gray-300 hover:text-white"
+                        : "text-gray-700 hover:text-gray-900"
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <motion.span
-                      className={`px-3 py-2 text-sm font-medium transition-colors duration-300 ${
-                        darkMode
-                          ? "text-gray-300 hover:text-white"
-                          : "text-gray-700 hover:text-gray-900"
-                      }`}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {item}
-                    </motion.span>
-                  </Link>
-                )
-              )}
+                    {item}
+                  </motion.span>
+                </Link>
+              ))}
             </div>
             <motion.button
               onClick={toggleDarkMode}
@@ -129,7 +143,7 @@ const HeroSection = ({ darkMode }) => {
           : "bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center z-20 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -163,7 +177,7 @@ const HeroSection = ({ darkMode }) => {
               Crafting beautiful and intuitive user interfaces with cutting-edge
               web technologies.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 relative z-10">
               <motion.a
                 href="#projects"
                 className={`inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white ${
@@ -192,7 +206,7 @@ const HeroSection = ({ darkMode }) => {
           </motion.div>
 
           <motion.div
-            className="relative p-16 pt-24 "
+            className="relative p-16 pt-24"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
@@ -204,7 +218,7 @@ const HeroSection = ({ darkMode }) => {
             >
               <img
                 src={KanishkPhoto}
-                alt="Kanishk - Frontend Developer"
+                alt="Kanishk"
                 className="object-cover object-center rounded-full"
               />
             </div>
@@ -233,6 +247,7 @@ const HeroSection = ({ darkMode }) => {
         </div>
       </div>
 
+      {/* Decorative elements */}
       <div
         className={`absolute top-0 left-0 right-0 h-64 ${
           darkMode
@@ -247,23 +262,115 @@ const HeroSection = ({ darkMode }) => {
             : "bg-gradient-to-t from-pink-200 to-transparent"
         } opacity-30`}
       ></div>
+      <div className="absolute top-48 left-48 w-full h-full pointer-events-none">
+        <div
+          className={`absolute w-1/3 h-1/2 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob ${
+            darkMode ? "" : "bg-blue-300"
+          }`}
+        ></div>
+        <div
+          className={`absolute w-1/3 h-1/2 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000 ${
+            darkMode ? "" : "bg-violet-300"
+          }`}
+        ></div>
+      </div>
     </div>
   );
 };
-
-const Skills = [
-  { name: "React", logo: ReactLogo, proficiency: 90, color: "#61DAFB" },
-  { name: "Node.js", logo: NodeLogo, proficiency: 85, color: "#339933" },
+const skillGroups = [
   {
-    name: "JavaScript",
-    logo: JavaScriptLogo,
-    proficiency: 95,
-    color: "#F7DF1E",
+    title: "Language",
+    skills: [
+      { name: "C", icon: CLogo },
+      { name: "C++", icon: CPPLogo },
+      { name: "Python", icon: PythonLogo },
+      { name: "CSS3", icon: CSSLogo },
+    ],
   },
-  { name: "CSS", logo: CSSLogo, proficiency: 90, color: "#1572B6" },
-  { name: "HTML", logo: HTMLLogo, proficiency: 95, color: "#E34F26" },
-  { name: "Python", logo: PythonLogo, proficiency: 80, color: "#3776AB" },
+  {
+    title: "Frontend",
+    skills: [
+      { name: "HTML5", icon: HTMLLogo },
+      { name: "CSS3", icon: CSSLogo },
+      { name: "JavaScript", icon: JavaScriptLogo },
+      { name: "Typescript", icon: TypescriptLogo },
+      { name: "TailwindCSS", icon: TailwindLogo },
+      { name: "Sass", icon: SassLogo },
+      { name: "ReactJS", icon: ReactLogo },
+      { name: "Next.js", icon: NextjsLogo },
+    ],
+  },
+  {
+    title: "Backend",
+    skills: [
+      { name: "Node.js", icon: NodeLogo },
+      { name: "Django", icon: DjangoLogo },
+      { name: "MySQL", icon: MysqlLogo },
+      { name: "Docker", icon: Docker },
+    ],
+  },
+  {
+    title: "Tools",
+    skills: [
+      { name: "Git", icon: GitLogo },
+      { name: "VS Code", icon: VSCodeLogo },
+      { name: "Firebase", icon: FirebaseLogo },
+    ],
+  },
+  // You can add more groups or skills as needed
 ];
+
+const SkillCard = ({ skill, index, inView, darkMode }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className={`flex flex-col items-center p-4 rounded-xl ${
+        darkMode ? "bg-gray-800" : "bg-white"
+      } shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105`}
+    >
+      <img src={skill.icon} alt={skill.name} className="w-12 h-12 mb-2" />
+      <span
+        className={`text-sm font-bold ${
+          darkMode ? "text-gray-300" : "text-gray-700"
+        }`}
+      >
+        {skill.name}
+      </span>
+    </motion.div>
+  );
+};
+
+const SkillGroup = ({ group, inView, darkMode }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8 }}
+      className="mb-12"
+    >
+      <h3
+        className={`text-2xl font-bold mb-6 ${
+          darkMode ? "text-white" : "text-gray-800"
+        }`}
+      >
+        {group.title}
+      </h3>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {group.skills.map((skill, index) => (
+          <SkillCard
+            key={skill.name}
+            skill={skill}
+            index={index}
+            inView={inView}
+            darkMode={darkMode}
+          />
+        ))}
+      </div>
+    </motion.div>
+  );
+};
 
 const SkillsSection = ({ darkMode }) => {
   const [ref, inView] = useInView({
@@ -275,157 +382,120 @@ const SkillsSection = ({ darkMode }) => {
     <section
       id="skills"
       ref={ref}
-      className={`py-20 pt-36 relative overflow-hidden $`}
+      className={`py-20 relative overflow-hidden ${
+        darkMode ? "bg-gray-900" : "bg-gray-100"
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className={`text-5xl font-extrabold text-center mb-16 tracking-tight ${
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className={`text-4xl md:text-5xl font-extrabold text-center mb-16 ${
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
-          My Expertise
+          My Toolkit
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {Skills.map((skill, index) => (
-            <SkillCard
-              key={skill.name}
-              skill={skill}
-              index={index}
-              inView={inView}
-              darkMode={darkMode}
-            />
-          ))}
+
+        {skillGroups.map((group) => (
+          <SkillGroup
+            key={group.title}
+            group={group}
+            inView={inView}
+            darkMode={darkMode}
+          />
+        ))}
+      </div>
+
+      {/* Background decoration */}
+      <div className={` ${darkMode ? "hidden" : ""}`}>
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+          <div className="absolute w-96 h-96 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+          <div className="absolute w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        </div>
+        <div className="absolute top-0 left-3/4 w-full h-full  pointer-events-none">
+          <div className=" absolute w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+          <div className="  absolute w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+          <div className=" absolute w-96 h-96 bg-red-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
         </div>
       </div>
       <div
         className={`absolute inset-0 ${
           darkMode
             ? "bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800"
-            : "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+            : "bg-gradient-to-r from-indigo-500 via-pink-500 to-purple-500"
         } opacity-10`}
       ></div>
     </section>
   );
 };
 
-const SkillCard = ({ skill, index, inView, darkMode }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`${
-        darkMode ? "bg-gray-800 bg-opacity-50" : "bg-white bg-opacity-20"
-      } backdrop-filter backdrop-blur-lg rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2`}
-    >
-      <div className="flex items-center mb-4">
-        <img src={skill.logo} alt={skill.name} className="w-12 h-12 mr-4" />
-        <h3
-          className={`text-2xl font-bold ${
-            darkMode ? "text-white" : "text-gray-800"
-          }`}
-        >
-          {skill.name}
-        </h3>
-      </div>
-      <div className="relative pt-1">
-        <div className="flex mb-2 items-center justify-between">
-          <div>
-            <span
-              className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-white"
-              style={{ backgroundColor: skill.color }}
-            >
-              Proficiency
-            </span>
-          </div>
-          <div className="text-right">
-            <span
-              className={`text-xs font-semibold inline-block ${
-                darkMode ? "text-gray-300" : "text-gray-700"
-              }`}
-            >
-              {skill.proficiency}%
-            </span>
-          </div>
-        </div>
-        <motion.div
-          className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-300"
-          initial={{ width: 0 }}
-          animate={inView ? { width: "100%" } : {}}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          <motion.div
-            style={{
-              width: `${skill.proficiency}%`,
-              backgroundColor: skill.color,
-            }}
-            className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center"
-            initial={{ width: 0 }}
-            animate={inView ? { width: `${skill.proficiency}%` } : {}}
-            transition={{ duration: 1, delay: 0.8 }}
-          ></motion.div>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-};
 const Projects = [
   {
-    title: "Project One",
-    description: "A brief description of Project One.",
-    image: "./assets/Kanishk.jpg",
-    link: "#",
-    github: "#",
-    technologies: ["React", "Node.js", "CSS"],
+    title: "Health Dome",
+    description:
+      "Developed system for Delhi hospitals, optimizing care for millions monthly patients. Implemented Llama AI for symptom-to-disease prediction with 90% accuracy created hybrid queuing model using disease tiers for reducing wait times.Applied EOQ model for inventory, decreasing stockouts and integrated comprehensive patient management. Shortlisted for Smart India Hackathon Round 2 among 200+ temas.",
+    image: Healthdome,
+    link: "https://github.com/KanishkValechha/Health_Dome",
+    github: "https://github.com/KanishkValechha/Health_Dome",
+    technologies: [
+      "ReactJS",
+      "TailwindCSS",
+      "Python",
+      "Flask",
+      "SQL",
+      "Docker",
+    ],
   },
   {
-    title: "Project Two",
-    description: "A brief description of Project Two.",
-    image: "./assets/Kanishk.jpg",
-    link: "#",
-    github: "#",
-    technologies: ["Vue.js", "Firebase", "Sass"],
+    title: "Stock Price Prediction",
+    description:
+      "Formulated an LSTM-based model to analyze and forecast stock market prices using historical data. Measured prediction accuracy, achieving over 70% for determining the directional movement of stock prices.Constructed a Streamlit-powered web interface to display predictive analytics and graphs for stocks. Integrated Yahoo Finance API to provide real-time stock price data, including prices for the past 10 years.",
+    image: Stock,
+    link: "https://github.com/KanishkValechha/Stock-Price-Prediction-Model",
+    github: "https://github.com/KanishkValechha/Stock-Price-Prediction-Model",
+    technologies: ["Python", "TensorFlow", "Streamlit", "Yahoo Finance API"],
   },
   {
-    title: "Project Three",
-    description: "A brief description of Project Three.",
-    image: "./assets/Kanishk.jpg",
-    link: "#",
-    github: "#",
-    technologies: ["Angular", "Express", "MongoDB"],
+    title: "AcoNews",
+    description:
+      "Developed Aconews, a responsive news app using Vite. Integrated Gnews API, providing articles from 60,000+ sources in 22 languages across 30 countries. Implemented search functionality, enabling users to filter through 100+ news categories.Deployed the website using Firebase.",
+    image: Aconews,
+    link: "https://aconews-2898d.web.app/",
+    github: "https://github.com/KanishkValechha/AcoNews",
+    technologies: ["React", "TailwindCSS", "Framer Motion", "Firebase"],
   },
   // Add more projects as needed
 ];
 
 const experiences = [
   {
-    role: "Senior Frontend Developer",
-    company: "Tech Innovators Inc.",
-    period: "January 2022 - Present",
+    role: "Freelance FullStack Developer",
+    company: "Shivanand Infrastructures",
+    period: "June 2024 - Present",
     responsibilities: [
-      "Led the development of a new customer-facing dashboard",
-      "Implemented state management using Redux for improved performance",
-      "Mentored junior developers and conducted code reviews",
+      "Led the development of a their new website",
+      "Implemennted complex visual animations for improved user experience",
+      "Optimized website performance and improved SEO",
     ],
-    technologies: ["React", "Redux", "TypeScript", "Tailwind CSS"],
+    technologies: ["React", "Tailwind CSS"],
   },
   {
-    role: "Senior Frontend Developer",
-    company: "Tech Innovators Inc.",
-    period: "January 2022 - Present",
+    role: "Webmaster",
+    company: "Cyber Space Club",
+    period: "May 2024 - Present",
     responsibilities: [
-      "Led the development of a new customer-facing dashboard",
-      "Implemented state management using Redux for improved performance",
-      "Mentored junior developers and conducted code reviews",
+      "Planned the overhaul of the clubs website, utilizing Next.js to enhance dynamic content delivery.",
+      "Utilizing Next.js reduced the initial load time by up to 50% compared to the previous React app.",
+      "Improved website SEO by 25% through optimized meta tags and content structure.",
+      "Implemented event registration features and integrated a newsletter section for better engagement.",
     ],
-    technologies: ["React", "Redux", "TypeScript", "Tailwind CSS"],
+    technologies: ["NextJS", "Tailwind CSS"],
   },
   // Add more experiences...
 ];
-
 
 const ExperienceSection = ({ darkMode }) => {
   const [ref, inView] = useInView({
@@ -679,15 +749,9 @@ const ProjectCard = ({ project, index, darkMode, variants }) => {
           <img
             src={project.image}
             alt={project.title}
-            className="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-110"
+            className="w-full  object-cover transition-transform duration-300 group-hover:scale-110"
           />
-          <div
-            className={`absolute inset-0 ${
-              darkMode
-                ? "bg-gradient-to-t from-gray-900 to-transparent"
-                : "bg-gradient-to-t from-white to-transparent"
-            } opacity-70 group-hover:opacity-40 transition-opacity duration-300`}
-          ></div>
+
           <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
         </motion.div>
       </div>
@@ -762,9 +826,6 @@ const ProjectCard = ({ project, index, darkMode, variants }) => {
     </motion.div>
   );
 };
-
-
-
 
 const ContactForm = ({ darkMode }) => {
   return (
@@ -943,27 +1004,29 @@ const ContactForm = ({ darkMode }) => {
 const achievements = [
   {
     icon: <Trophy className="w-8 h-8" />,
-    title: "Best Innovative Project",
-    description: "Awarded for developing an AI-powered accessibility tool",
-    year: "2023",
+    title: "Ranked 3rd at Abacus",
+    description: "Ranked 3rd at State Level Abacus Competition",
+    year: "2017",
   },
   {
     icon: <Star className="w-8 h-8" />,
-    title: "5x Hackathon Winner",
-    description: "Consistently delivered innovative solutions under pressure",
-    year: "2019-2023",
+    title: "3 Star at Codechef",
+    description:
+      "Consistently performed well in Codechef contests, demonstrating a high level of competitive programming ability.",
+    year: "2024",
   },
   {
     icon: <Award className="w-8 h-8" />,
-    title: "Outstanding Contributor",
-    description: "Recognized for significant open-source contributions",
+    title: "SIH 2024 Finalists",
+    description: "Finalists at Smart India Hackathon 2024 for Health Dome",
     year: "2022",
   },
   {
     icon: <Target className="w-8 h-8" />,
-    title: "1M+ Downloads",
-    description: "Personal project reached major milestone on app store",
-    year: "2021",
+    title: "Knight at LeetCode",
+    description:
+      "Achieved the title of Knight on LeetCode, solving 100+ problems.",
+    year: "2024",
   },
 ];
 
@@ -972,7 +1035,7 @@ const AchievementCard = ({ achievement, index, inView, darkMode }) => {
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 1, delay: index * 0.3}}
+      transition={{ duration: 1, delay: index * 0.3 }}
       className={`relative p-6 rounded-lg shadow-lg overflow-hidden ${
         darkMode ? "bg-gray-800 bg-opacity-50" : "bg-white bg-opacity-80"
       }`}
@@ -1065,7 +1128,6 @@ const AchievementsSection = ({ darkMode }) => {
     </section>
   );
 };
-
 
 const PortfolioWebsite = () => {
   const [darkMode, setDarkMode] = useState(false);
