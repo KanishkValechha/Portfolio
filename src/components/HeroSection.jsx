@@ -50,8 +50,7 @@ return (
               darkMode ? "text-gray-300" : "text-gray-700"
             }`}
           >
-            Crafting beautiful and intuitive user interfaces with cutting-edge
-            web technologies.
+            I am Fullstack Developer who likes to code, I do competitive programming as a habit, love to see new technologies be it in dev or non-dev world. 
           </p>
           <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <motion.a

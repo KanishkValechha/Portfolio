@@ -6,6 +6,7 @@ import Aconews from "../assets/aconews.png";
 import Healthdome from "../assets/HealthDome.png";
 import Stock from "../assets/Stock.png";
 import ChanceChat from "../assets/ChanceChat.png";
+import LeetwithGit from "../assets/LeetwithGit.png";
 const Projects = [
   {
     title: "Chance Chat",
@@ -27,20 +28,11 @@ const Projects = [
     video: "https://www.youtube.com/embed/4GPMp6Fk5ZU", // Updated embed URL
   },
   {
-    title: "AcoNews",
-    description:
-      "Developed Aconews, a responsive news app using Vite. Integrated Gnews API, providing articles from 60,000+ sources in 22 languages across 30 countries. Implemented search functionality, enabling users to filter through 100+ news categories.Deployed the website using Firebase.",
-    image: Aconews,
-    link: "https://aconews-2898d.web.app/",
-    github: "https://github.com/KanishkValechha/AcoNews",
-    technologies: ["React", "TailwindCSS", "Framer Motion", "Firebase"],
-  },
-  {
     title: "Health Dome",
     description:
-      "Developed system for Delhi hospitals, optimizing care for millions monthly patients. Implemented Llama AI for symptom-to-disease prediction with 90% accuracy created hybrid queuing model using disease tiers for reducing wait times.Applied EOQ model for inventory, decreasing stockouts and integrated comprehensive patient management. Shortlisted for Smart India Hackathon Round 2 among 200+ temas.",
+      "Developed system for Delhi hospitals, optimizing care for millions monthly patients. Implemented Llama AI for symptom-to-disease prediction with 90% accuracy created hybrid queuing model using disease tiers for reducing wait times.Applied EOQ model for inventory, decreasing stockouts and integrated comprehensive patient management. Shortlisted for Smart India Hackathon Round 2 among 200+ teams.",
     image: Healthdome,
-    link: "https://github.com/KanishkValechha/Health_Dome",
+    link: "https://youtu.be/gC629wksFf8",
     github: "https://github.com/KanishkValechha/Health_Dome",
     technologies: [
       "ReactJS",
@@ -49,7 +41,27 @@ const Projects = [
       "Flask",
       "SQL",
       "Docker",
+      "AWS",
     ],
+    video: "https://www.youtube.com/embed/gC629wksFf8?si=aYfVgvZ-9z8C_LHY", // Updated embed URL
+  },
+  {
+    title: "LeetwithGit",
+    description:
+      "Developed a Leetcode extension which pushes the users LC submission on Github with a single click, also users can add friends and see their submissions. Integrated Github API for fetching user data and submissions. Implemented OAuth for user authentication and authorization. Deployed the extension on Chrome Web Store(WIP).",
+    image: LeetwithGit,
+    link: "https://github.com/KanishkValechha/LeetWithGit",
+    github: "https://github.com/KanishkValechha/LeetWithGit",
+    technologies: ["Javascript", "Github API", "OAuth", "Chrome Extension"],
+  },
+  {
+    title: "AcoNews",
+    description:
+      "Developed Aconews, a responsive news app using Vite. Integrated Gnews API, providing articles from 60,000+ sources in 22 languages across 30 countries. Implemented search functionality, enabling users to filter through 100+ news categories.Deployed the website using Firebase.",
+    image: Aconews,
+    link: "https://aconews-2898d.web.app/",
+    github: "https://github.com/KanishkValechha/AcoNews",
+    technologies: ["React", "TailwindCSS", "Framer Motion", "Firebase"],
   },
   {
     title: "Stock Price Prediction",
