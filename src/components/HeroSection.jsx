@@ -20,7 +20,7 @@ return (
         : "bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100"
     }`}
   >
-    <div className="max-w-7xl mx-auto sm:px-6 md:pt-16 lg:px-8 h-full flex items-center z-20 relative">
+    <div className="max-w-7xl mx-auto sm:px-6 md:pt-24 lg:px-8 h-full flex items-center z-20 relative">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center py-8 md:py-0">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
