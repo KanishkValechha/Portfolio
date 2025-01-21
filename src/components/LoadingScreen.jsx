@@ -8,7 +8,6 @@ const MinimalistLoadingScreen = ({ darkMode, onLoadingComplete }) => {
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    // Start showing content after a brief delay
     setTimeout(() => setShowContent(true), 500);
 
     const timer = setInterval(() => {
@@ -17,7 +16,7 @@ const MinimalistLoadingScreen = ({ darkMode, onLoadingComplete }) => {
           clearInterval(timer);
           setTimeout(() => {
             setIsLoading(false);
-            onLoadingComplete();
+            onLoadingComplete(true); // Pass true to indicate loading is complete
           }, 800);
           return 100;
         }

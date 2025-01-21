@@ -12,13 +12,16 @@ import MinimalistLoadingScreen from "./components/LoadingScreen";
 const PortfolioWebsite = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showHeroAnimations, setShowHeroAnimations] = useState(false);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
-
   const handleLoadingComplete = () => {
     setIsLoading(false);
+    setTimeout(() => {
+      setShowHeroAnimations(true);
+    }, 100);
   };
 
   return (
@@ -37,7 +40,7 @@ const PortfolioWebsite = () => {
         }`}
       >
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        <HeroSection darkMode={darkMode} />
+        <HeroSection darkMode={darkMode} loadingComplete={showHeroAnimations} />
         <SkillsSection darkMode={darkMode} />
         <ExperienceSection darkMode={darkMode} />
         <ProjectsSection darkMode={darkMode} />
