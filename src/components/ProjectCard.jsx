@@ -126,36 +126,9 @@ const ProjectCard = ({ project, index, darkMode, video }) => {
               </div>
             )}
           </motion.div>
-
-          {/* Tech stack tags positioned over the image */}
-          <div className="absolute top-0 left-0 right-0 p-3 flex flex-wrap gap-1">
-            {project.technologies.slice(0, 3).map((tech) => (
-              <span
-                key={tech}
-                className={`px-2 py-1 rounded-full text-xs font-medium backdrop-blur-md ${
-                  darkMode
-                    ? "bg-gray-900/70 text-blue-300"
-                    : "bg-white/70 text-blue-800"
-                }`}
-              >
-                {tech}
-              </span>
-            ))}
-            {project.technologies.length > 3 && (
-              <span
-                className={`px-2 py-1 rounded-full text-xs font-medium backdrop-blur-md ${
-                  darkMode
-                    ? "bg-gray-900/70 text-blue-300"
-                    : "bg-white/70 text-blue-800"
-                }`}
-              >
-                +{project.technologies.length - 3}
-              </span>
-            )}
-          </div>
         </div>
 
-        <div className="w-full md:w-3/5 p-6 md:p-8 flex flex-col h-full justify-between">
+        <div className="w-full md:w-3/5 p-6 md:p-8 flex flex-col h-auto justify-between">
           <div>
             <h3
               className={`text-xl sm:text-2xl font-bold mb-3 ${
@@ -172,7 +145,7 @@ const ProjectCard = ({ project, index, darkMode, video }) => {
                   darkMode ? "text-gray-300" : "text-gray-600"
                 }`}
                 style={{
-                  maxHeight: isExpanded ? "1000px" : "60px",
+                  maxHeight: isExpanded ? "1000px" : "20px",
                   transition: "max-height 0.3s ease-in-out",
                 }}
               >
@@ -206,15 +179,15 @@ const ProjectCard = ({ project, index, darkMode, video }) => {
 
             {/* Desktop description (always fully visible) */}
             <p
-              className={`mb-4 text-sm leading-relaxed hidden md:block ${
+              className={`hidden md:mb-4 text-sm leading-relaxed md:block ${
                 darkMode ? "text-gray-300" : "text-gray-600"
               }`}
             >
               {project.description}
             </p>
 
-            {/* Additional tech tags for desktop */}
-            <div className="hidden md:flex flex-wrap gap-1 pb-4">
+            {/* Tech tags - visible on all devices */}
+            <div className="flex flex-wrap gap-1 pb-4">
               {project.technologies.map((tech) => (
                 <span
                   key={tech}
