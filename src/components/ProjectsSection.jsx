@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import ProjectCard from "./ProjectCard";
 import Aconews from "../assets/aconews.png";
@@ -7,7 +8,17 @@ import Healthdome from "../assets/HealthDome.png";
 import Stock from "../assets/Stock.png";
 import ChanceChat from "../assets/ChanceChat.png";
 import LeetwithGit from "../assets/LeetwithGit.png";
+import WallOfFame from "../assets/WallOfFame.png";
 const Projects = [
+  {
+    title: "Wall of Fame",
+    description:
+      "Developed a Wall of Fame website for college using Next.js and MongoDB, creating an interactive platform to showcase student achievements. Integrated dynamic content delivery and optimized website performance, improving SEO and user engagement. Deployed the website on Vercel.",
+    image: WallOfFame,
+    link: "https://wall-of-fame-rho.vercel.app/",
+    github: "",
+    technologies: ["Next.js", "MongoDB", "Vercel"],
+  },
   {
     title: "Chance Chat",
     description:
@@ -76,25 +87,38 @@ const Projects = [
 
 const ProjectsSection = ({ darkMode }) => {
   ProjectsSection.propTypes = {
-    darkMode: PropTypes.bool.isRequired
-  }
+    darkMode: PropTypes.bool.isRequired,
+  };
+
+  // Update the intersection observer configuration
   const [ref, inView] = useInView({
-    triggerOnce: false,
+    triggerOnce: false, // Keep this false to allow re-animation
     threshold: 0.1,
+    rootMargin: "0px 0px 0px 0px", // Adjust this to start detection earlier
   });
+
+  // Track if we've ever been in view to prevent the blank state
+  const [hasBeenInView, setHasBeenInView] = useState(false);
+
+  // Update hasBeenInView state when section comes into view
+  useEffect(() => {
+    if (inView && !hasBeenInView) {
+      setHasBeenInView(true);
+    }
+  }, [inView, hasBeenInView]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
+        staggerChildren: 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
@@ -110,16 +134,20 @@ const ProjectsSection = ({ darkMode }) => {
     <section
       id="projects"
       ref={ref}
-      className={`py-10 pt-20 relative overflow-hidden ${
+      className={`py-8 pt-16 relative overflow-hidden ${
         darkMode ? "bg-gray-900" : "bg-gray-100"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.h2
-          initial={{ opacity: 0, y: -50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className={`text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-16 tracking-tight ${
+          initial={{ opacity: 0, y: -30 }}
+          animate={
+            inView || hasBeenInView
+              ? { opacity: 1, y: 0 }
+              : { opacity: 0, y: -30 }
+          }
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className={`text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-10 tracking-tight ${
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
@@ -128,8 +156,12 @@ const ProjectsSection = ({ darkMode }) => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="space-y-32"
+          animate={inView || hasBeenInView ? "visible" : "hidden"}
+          transition={{
+            duration: 0.5,
+            ease: "easeInOut",
+          }}
+          className="space-y-6"
         >
           {Projects.map((project, index) => (
             <ProjectCard
