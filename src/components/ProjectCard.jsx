@@ -7,6 +7,8 @@ const ProjectCard = ({ project, index, darkMode, video, variants }) => {
   const [isHovered, setIsHovered] = useState(false);
   // Add a state to control when to load the iframe to improve performance
   const [shouldLoadIframe, setShouldLoadIframe] = useState(false);
+  // Add a state to track if description is expanded
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // Set up a timer to delay iframe loading until needed
   useEffect(() => {
@@ -24,6 +26,9 @@ const ProjectCard = ({ project, index, darkMode, video, variants }) => {
   };
 
   const isEven = index % 2 === 0;
+
+  // Get the first line of the description
+  const firstLine = project.description.split(".")[0] + ".";
 
   return (
     <motion.div
@@ -71,13 +76,55 @@ const ProjectCard = ({ project, index, darkMode, video, variants }) => {
         >
           {project.title}
         </h3>
+
+        {/* Mobile description with expand/collapse functionality */}
+        <div className="lg:hidden">
+          <div
+            className={`mb-3 text-sm leading-relaxed overflow-hidden transition-all duration-300 ${
+              darkMode ? "text-gray-300" : "text-gray-700"
+            }`}
+            style={{
+              maxHeight: isExpanded ? "1000px" : "20px", // Only show first line height
+              transition: "max-height 0.3s ease-in-out",
+            }}
+          >
+            {isExpanded ? project.description : firstLine}
+          </div>
+
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className={`flex items-center text-xs font-medium mb-3 ${
+              darkMode ? "text-indigo-400" : "text-indigo-600"
+            }`}
+          >
+            <span>{isExpanded ? "View less" : "View more"}</span>
+            <svg
+              className={`h-4 w-4 ml-1 transform transition-transform duration-300 ${
+                isExpanded ? "rotate-180" : ""
+              }`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Desktop description (always fully visible) */}
         <p
-          className={`mb-3 text-sm leading-relaxed ${
+          className={`mb-3 text-sm leading-relaxed hidden lg:block ${
             darkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >
           {project.description}
         </p>
+
         <div className="flex flex-wrap gap-1 pb-2">
           {project.technologies.map((tech) => (
             <span

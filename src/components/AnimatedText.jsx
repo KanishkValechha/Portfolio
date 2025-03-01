@@ -18,7 +18,7 @@ const AnimatedText = ({ darkMode }) => {
         {roles.map((role, index) => (
           <div
             key={index}
-            className={`text-item block text-2xl font-bold ${
+            className={`text-item block text:lg md:text-2xl lg:text-4xl font-bold ${
               darkMode ? "text-indigo-400" : "text-indigo-600"
             }`}
           >
