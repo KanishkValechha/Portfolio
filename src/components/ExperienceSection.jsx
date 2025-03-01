@@ -5,6 +5,16 @@ import ExperienceCard from "./ExperienceCard";
 
 const experiences = [
   {
+    role: "Fullstack Developer Intern",
+    company: "Software Development Centre MUJ",
+    period: "Jan 2025 - Present",
+    responsibilities: [
+      "Developing a Wall of Fame website for college using Next.js and MongoDB, creating an interactive platform to showcase student achievements."
+    ],
+    technologies: ["Next.js", "MongoDB"],
+    link: "https://wall-of-fame-rho.vercel.app/",
+  },
+  {
     role: "Freelance Web Developer",
     company: "TechPI Solutions",
     period: "Nov 2024 - Nov 2024",
@@ -14,18 +24,7 @@ const experiences = [
       "Optimized website performance and improved SEO",
     ],
     technologies: ["Astro", "Tailwind CSS", "Motion"],
-    link: "https://tech-pi-website.vercel.app/", // Added link
-  },
-  {
-    role: "Freelance FullStack Developer",
-    company: "Shivanand Infrastructures",
-    period: "June 2024 - May 2024",
-    responsibilities: [
-      "Led the development of a their new website",
-      "Implemennted complex visual animations for improved user experience",
-      "Optimized website performance and improved SEO",
-    ],
-    technologies: ["React", "Tailwind CSS"],
+    link: "https://tech-pi-website.vercel.app/", 
   },
   {
     role: "Web Developer",
@@ -40,7 +39,6 @@ const experiences = [
     technologies: ["NextJS", "Tailwind CSS"],
     link: "https://csc-24.vercel.app",
   },
-  // Add more experiences...
 ];
 
 const ExperienceSection = ({ darkMode }) => {
