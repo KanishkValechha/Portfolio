@@ -18,17 +18,17 @@ import SassLogo from "../assets/sass-logo.png";
 
 export const skillGroups = [
   {
-    title: "Language",
+    title: "Programming Languages",
     skills: [
-      { name: "C", icon: CLogo },
-      { name: "C++", icon: CPPLogo },
-      { name: "Python", icon: PythonLogo },
       { name: "JavaScript", icon: JavaScriptLogo },
       { name: "TypeScript", icon: TypescriptLogo },
+      { name: "Python", icon: PythonLogo },
+      { name: "C", icon: CLogo },
+      { name: "C++", icon: CPPLogo },
     ],
   },
   {
-    title: "Frontend",
+    title: "Frontend Development",
     skills: [
       { name: "React.js", icon: ReactLogo },
       { name: "Next.js", icon: NextjsLogo },
@@ -38,20 +38,21 @@ export const skillGroups = [
     ],
   },
   {
-    title: "Backend",
+    title: "Backend & Databases",
     skills: [
       { name: "Node.js", icon: NodeLogo },
       { name: "Django", icon: DjangoLogo },
       { name: "MySQL", icon: MysqlLogo },
-      { name: "MongoDB", icon: MongoLogo }
+      { name: "MongoDB", icon: MongoLogo },
+      { name: "Firebase", icon: FirebaseLogo },
     ],
   },
   {
-    title: "Tools",
+    title: "DevOps & Tools",
     skills: [
       { name: "Git", icon: GitLogo },
       { name: "Docker", icon: Docker },
-      { name: "Firebase", icon: FirebaseLogo },
+      // Add more tools if available
     ],
   },
 ];
