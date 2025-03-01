@@ -8,7 +8,7 @@ import leetcodeLogo from "../assets/leetcode-logo.svg";
 import codeforcesLogo from "../assets/codeforces-logo.svg";
 import codechefLogo from "../assets/codechef-logo.svg";
 import linkedinLogo from "../assets/linkedin-logo.svg";
-import twitterLogo from "../assets/twitter-logo.svg";
+import twitterLogo from "../assets/x.svg";
 
 const HeroSection = ({ darkMode, loadingComplete }) => {
   return (
