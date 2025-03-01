@@ -13,6 +13,8 @@ import NextjsLogo from "../assets/nextjs-logo.png";
 import MysqlLogo from "../assets/mysql-logo.png";
 import FirebaseLogo from "../assets/firebase.png";
 import AstroLogo from "../assets/astro.png";
+import MongoLogo from "../assets/mongo-db-logo.png";
+import SassLogo from "../assets/sass-logo.png";
 
 export const skillGroups = [
   {
@@ -22,16 +24,17 @@ export const skillGroups = [
       { name: "C++", icon: CPPLogo },
       { name: "Python", icon: PythonLogo },
       { name: "JavaScript", icon: JavaScriptLogo },
+      { name: "TypeScript", icon: TypescriptLogo },
     ],
   },
   {
     title: "Frontend",
     skills: [
-      { name: "React", icon: ReactLogo },
+      { name: "React.js", icon: ReactLogo },
       { name: "Next.js", icon: NextjsLogo },
-      { name: "TypeScript", icon: TypescriptLogo },
-      { name: "TailwindCSS", icon: TailwindLogo },
       { name: "Astro", icon: AstroLogo },
+      { name: "TailwindCSS", icon: TailwindLogo },
+      { name: "Sass", icon: SassLogo },
     ],
   },
   {
@@ -40,6 +43,7 @@ export const skillGroups = [
       { name: "Node.js", icon: NodeLogo },
       { name: "Django", icon: DjangoLogo },
       { name: "MySQL", icon: MysqlLogo },
+      { name: "MongoDB", icon: MongoLogo }
     ],
   },
   {
