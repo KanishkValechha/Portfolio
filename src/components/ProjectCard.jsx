@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 const ProjectCard = ({ project, index, darkMode, video }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -8,12 +9,28 @@ const ProjectCard = ({ project, index, darkMode, video }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const cardRef = useRef(null);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     if (isHovered && video && !shouldLoadIframe) {
       setShouldLoadIframe(true);
     }
   }, [isHovered, video, shouldLoadIframe]);
+
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape" && isModalOpen) {
+        setIsModalOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleEsc);
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, [isModalOpen]);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -25,6 +42,13 @@ const ProjectCard = ({ project, index, darkMode, video }) => {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [isModalOpen]);
+
+  // Fix: Ensure modal is rendered directly in the body
+  useEffect(() => {
+    if (isModalOpen && modalRef.current) {
+      document.body.appendChild(modalRef.current);
+    }
   }, [isModalOpen]);
 
   ProjectCard.propTypes = {
@@ -67,6 +91,226 @@ const ProjectCard = ({ project, index, darkMode, video }) => {
   };
 
   const firstLine = project.description.split(".")[0] + ".";
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Function to create modal portal
+  const renderModal = () => {
+    if (!isModalOpen || !video) return null;
+
+    // This will be portaled to the body
+    return (
+      <div
+        className="modal-portal fixed inset-0"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 9999,
+        }}
+      >
+        {/* Overlay that covers the entire screen */}
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-md"
+          onClick={closeModal}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        ></div>
+
+        {/* Modal Content - positioned in the center of viewport */}
+        <motion.div
+          className="relative w-[92%] md:w-[85%] max-w-4xl bg-gradient-to-br from-gray-900 to-black rounded-xl shadow-2xl z-50 border border-gray-800"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{
+            type: "spring",
+            damping: 25,
+            stiffness: 300,
+          }}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            position: "relative",
+            maxHeight: "90vh",
+            margin: "0 auto",
+            zIndex: 50,
+          }}
+        >
+          {/* Top Bar */}
+          <div className="flex items-center justify-between px-4 py-3 bg-gray-900/90 border-b border-gray-800">
+            <div className="flex items-center">
+              <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+              <h3 className="text-white font-medium text-sm md:text-base ml-2">
+                {project.title}{" "}
+                <span className="text-gray-400 text-xs">• Demo</span>
+              </h3>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <motion.button
+                className="text-gray-400 hover:text-white transition-colors p-1.5 rounded-full"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => window.open(video, "_blank")}
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </motion.button>
+              <motion.button
+                className="text-gray-400 hover:text-white transition-colors p-1.5 rounded-full"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={closeModal}
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </motion.button>
+            </div>
+          </div>
+
+          {/* Video Container with fixed aspect ratio */}
+          <div className="w-full" style={{ aspectRatio: "16/9" }}>
+            <div className="relative w-full h-full">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 z-0"></div>
+              <iframe
+                src={video}
+                title={`${project.title} Demo`}
+                className="absolute top-0 left-0 w-full h-full z-10"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+
+              {/* Loading overlay */}
+              <motion.div
+                className="absolute inset-0 bg-black/50 flex items-center justify-center z-20"
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 0 }}
+                transition={{ delay: 1.5, duration: 0.5 }}
+                style={{ pointerEvents: "none" }}
+              >
+                <motion.div
+                  className="w-12 h-12 border-4 border-t-blue-500 border-r-transparent border-b-pink-500 border-l-transparent rounded-full"
+                  animate={{ rotate: 360 }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Bottom Info Bar */}
+          <div className="p-4 bg-gradient-to-r from-gray-900 to-gray-800">
+            <div className="flex flex-wrap justify-between items-center">
+              <div>
+                <h3 className="font-bold text-base sm:text-lg text-white mb-1">
+                  {project.title}
+                </h3>
+                <p className="text-xs text-gray-400 hidden sm:block">
+                  {firstLine}
+                </p>
+              </div>
+
+              <div className="flex gap-2 mt-2 sm:mt-0">
+                {project.github && (
+                  <motion.a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-white text-xs font-medium transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <svg
+                      className="w-4 h-4 mr-1"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Code
+                  </motion.a>
+                )}
+
+                {project.link && (
+                  <motion.a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <svg
+                      className="w-4 h-4 mr-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                      <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                    </svg>
+                    Project
+                  </motion.a>
+                )}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ESC hint */}
+        <div
+          className="fixed bottom-4 left-1/2 transform -translate-x-1/2 text-white/50 text-xs flex items-center gap-1"
+          style={{ zIndex: 51 }}
+        >
+          <kbd className="px-2 py-1 bg-gray-800/70 rounded-md font-mono">
+            ESC
+          </kbd>
+          <span>to close</span>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -297,55 +541,8 @@ const ProjectCard = ({ project, index, darkMode, video }) => {
         ></div>
       </motion.div>
 
-      {/* Video Modal */}
-      {isModalOpen && video && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => setIsModalOpen(false)}
-        >
-          <motion.div
-            className="relative w-full max-w-4xl bg-black rounded-lg overflow-hidden"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", damping: 15 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="absolute top-4 right-4 z-10 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
-              onClick={() => setIsModalOpen(false)}
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            </button>
-            <div className="aspect-w-16 aspect-h-9">
-              <iframe
-                src={video}
-                title={`${project.title} Demo`}
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              ></iframe>
-            </div>
-            <div className="p-4 bg-gray-900 text-white">
-              <h3 className="font-bold text-lg">{project.title} Demo</h3>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
+      {/* Render modal using a function to prepare it for potential portal use */}
+      {isModalOpen && createPortal(renderModal(), document.body)}
     </>
   );
 };
