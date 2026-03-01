@@ -20,7 +20,7 @@ export default function NavBar() {
     return (
         <>
             <motion.nav
-                className="fixed inset-x-0 top-0 z-50 py-2.5 border-b border-border bg-black/85 backdrop-blur-xl"
+                className="inset-x-0 top-0 z-50 py-2.5"
                 initial={{ opacity: 0, y: -16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}

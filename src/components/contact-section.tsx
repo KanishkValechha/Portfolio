@@ -45,7 +45,7 @@ export default function ContactSection({
 
     return (
         <motion.div
-            className="mx-auto min-h-screen max-w-5xl px-6 py-24 md:py-28"
+            className="mx-auto h-svh max-w-5xl px-6 pt-4 pb-24 md:py-12"
             variants={pageVariants}
             initial="initial"
             animate="animate"

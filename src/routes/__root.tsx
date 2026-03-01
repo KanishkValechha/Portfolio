@@ -55,7 +55,7 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="h-svh bg-background text-foreground">
       <NavBar />
       <AnimatePresence mode="wait">
         <motion.main
@@ -64,7 +64,7 @@ function RootComponent() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.2 }}
-          className="min-h-screen"
+          className="h-svh"
         >
           <Outlet />
         </motion.main>

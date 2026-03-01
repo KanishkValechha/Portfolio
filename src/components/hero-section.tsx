@@ -16,19 +16,12 @@ export default function HeroSection({
 
     return (
         <motion.div
-            className="relative flex min-h-screen items-center justify-center px-6 py-24 md:py-20"
+            className="relative flex h-screen items-center justify-center px-6"
             variants={pageVariants}
             initial="initial"
             animate="animate"
             exit="exit"
         >
-            <div
-                className="absolute inset-0 bg-[radial-gradient(circle,#1a1a1a_1px,transparent_1px)] bg-size-[24px_24px] opacity-40"
-                style={{
-                    maskImage:
-                        'radial-gradient(ellipse at center, black 20%, transparent 65%)',
-                }}
-            />
 
             <div className="relative z-10 max-w-xl text-center">
                 <p className="mb-4 font-mono text-sm tracking-widest text-blue-500">
