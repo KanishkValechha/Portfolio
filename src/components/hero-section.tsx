@@ -32,9 +32,16 @@ export default function HeroSection({
                     {personalInfo.name}
                 </h1>
 
-                <p className="mb-6 text-base text-muted-foreground">
-                    {roles[0]}
-                </p>
+                <div className="role-container mb-6 h-6">
+                    {roles.map((role) => (
+                        <span
+                            key={role}
+                            className="role-text text-base text-muted-foreground"
+                        >
+                            {role}
+                        </span>
+                    ))}
+                </div>
 
                 <p className="mx-auto mb-8 max-w-md text-base leading-relaxed text-muted-foreground">
                     {personalInfo.bio}
