@@ -1,17 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { AnimatePresence } from 'motion/react'
-import HeroSection from '#/components/hero-section'
+import ContactSection from '#/components/contact-section'
 import { personalInfo, socialLinks } from '#/lib/portfolio-data'
 
-export const Route = createFileRoute('/')({
-  component: HomePage,
+export const Route = createFileRoute('/contact')({
+  component: ContactPage,
 })
 
-function HomePage() {
+function ContactPage() {
   return (
     <AnimatePresence mode="wait">
-      <HeroSection
-        key="home"
+      <ContactSection
+        key="contact"
         personalInfo={personalInfo}
         socialLinks={socialLinks}
       />

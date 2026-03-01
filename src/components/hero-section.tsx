@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
 import { Link } from '@tanstack/react-router'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion } from 'motion/react'
 import { buttonVariants } from '#/components/ui/button'
 import type { PersonalInfo, SocialLink } from '#/lib/portfolio-data'
 import { pageVariants } from '#/lib/motion-variants'
@@ -17,15 +16,6 @@ export default function HeroSection({
     socialLinks,
 }: HeroSectionProps) {
     const { roles } = personalInfo
-    const [roleIdx, setRoleIdx] = useState(0)
-
-    useEffect(() => {
-        const iv = setInterval(
-            () => setRoleIdx((i) => (i + 1) % roles.length),
-            2600,
-        )
-        return () => clearInterval(iv)
-    }, [roles.length])
 
     return (
         <motion.div
@@ -53,20 +43,9 @@ export default function HeroSection({
                     {personalInfo.name}
                 </h1>
 
-                <div className="mb-6 h-8 overflow-hidden">
-                    <AnimatePresence mode="wait">
-                        <motion.span
-                            key={roleIdx}
-                            className="block text-base text-muted-foreground"
-                            initial={{ opacity: 0, y: 12 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -12 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            {roles[roleIdx]}
-                        </motion.span>
-                    </AnimatePresence>
-                </div>
+                <p className="mb-6 text-base text-muted-foreground">
+                    {roles[0]}
+                </p>
 
                 <p className="mx-auto mb-8 max-w-md text-base leading-relaxed text-muted-foreground">
                     {personalInfo.bio}
@@ -74,26 +53,20 @@ export default function HeroSection({
 
                 <div className="mb-10 flex justify-center gap-3">
                     <Link
-                        to="/"
-                        search={{ section: 'projects' }}
-                        replace
+                        to="/projects"
                         className={cn(
                             buttonVariants({ variant: 'default' }),
                             'bg-foreground text-background hover:bg-foreground/90 no-underline',
                         )}
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'instant' })}
                     >
                         View Projects
                     </Link>
                     <Link
-                        to="/"
-                        search={{ section: 'contact' }}
-                        replace
+                        to="/contact"
                         className={cn(
                             buttonVariants({ variant: 'outline' }),
                             'no-underline',
                         )}
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'instant' })}
                     >
                         Contact
                     </Link>

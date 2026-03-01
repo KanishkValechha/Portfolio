@@ -1,8 +1,16 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import {
+  HeadContent,
+  Outlet,
+  Scripts,
+  createRootRoute,
+  useRouterState,
+} from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
+import { AnimatePresence, motion } from 'motion/react'
 
 import PostHogProvider from '../integrations/posthog/provider'
+import NavBar from '../components/nav-bar'
 
 import appCss from '../styles.css?url'
 
@@ -22,8 +30,31 @@ export const Route = createRootRoute({
     ],
     links: [{ rel: 'stylesheet', href: appCss }],
   }),
+  component: RootComponent,
   shellComponent: RootDocument,
 })
+
+function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname })
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <NavBar />
+      <AnimatePresence mode="wait">
+        <motion.main
+          key={pathname}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.2 }}
+          className="min-h-screen"
+        >
+          <Outlet />
+        </motion.main>
+      </AnimatePresence>
+    </div>
+  )
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
