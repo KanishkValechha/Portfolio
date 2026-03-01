@@ -64,20 +64,20 @@ export default function NavBar() {
                     ease: [0.16, 1, 0.3, 1],
                 }}
             >
-                <div className="mobile-dock">
+                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-2xl border border-white/10 bg-black/70 backdrop-blur-xl backdrop-saturate-150">
                     {TABS.map((t) => {
                         const Icon = t.icon
                         return (
                             <Link
                                 key={t.id}
                                 to={t.path}
-                                className="mobile-dock-item no-underline"
+                                className="mobile-dock-item relative flex items-center justify-center w-12 h-11 bg-transparent cursor-pointer rounded-xl no-underline transition-transform duration-100 active:scale-90"
                                 aria-label={t.label}
                                 children={({ isActive }) => (
                                     <>
                                         {isActive && (
                                             <motion.span
-                                                className="mobile-dock-pill"
+                                                className="absolute inset-0 rounded-xl bg-white/10 border border-white/5"
                                                 layoutId="dock-pill"
                                                 transition={{
                                                     type: 'spring',
@@ -96,7 +96,8 @@ export default function NavBar() {
                                             }}
                                         >
                                             <Icon
-                                                className={`mobile-dock-icon ${isActive ? 'mobile-dock-icon--active' : ''}`}
+                                                className={`w-5 h-5 transition-colors duration-200 ${isActive ? 'text-white' : 'text-white/30'}`}
+                                                strokeWidth={1.5}
                                             />
                                         </motion.span>
                                     </>

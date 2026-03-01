@@ -32,11 +32,11 @@ export default function HeroSection({
                     {personalInfo.name}
                 </h1>
 
-                <div className="role-container mb-6 h-6">
+                <div className="flex justify-center relative mb-6 h-6">
                     {roles.map((role) => (
                         <span
                             key={role}
-                            className="role-text text-base text-muted-foreground"
+                            className="role-text absolute whitespace-nowrap text-base text-muted-foreground"
                         >
                             {role}
                         </span>
