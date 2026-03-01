@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from '@tanstack/react-router'
 import { motion } from 'motion/react'
 import { Button } from '#/components/ui/button'
 import {
@@ -36,37 +37,39 @@ export default function NavBar({ active, onNav }: NavBarProps) {
             {/* ── Desktop top bar ── */}
             <motion.nav
                 className={`fixed inset-x-0 top-0 z-50 py-4 transition-all duration-300 ${scrolled
-                        ? 'border-b border-border bg-black/85 py-2.5 backdrop-blur-xl'
-                        : ''
+                    ? 'border-b border-border bg-black/85 py-2.5 backdrop-blur-xl'
+                    : ''
                     }`}
                 initial={{ opacity: 0, y: -16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}
             >
                 <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => onNav('home')}
-                        className="p-0 text-xl font-bold hover:bg-transparent"
+                    <Link
+                        to="/"
+                        search={{ section: 'home' }}
+                        className="p-0 text-xl font-bold hover:bg-transparent no-underline text-foreground"
                     >
                         K.
-                    </Button>
+                    </Link>
 
                     <div className="hidden gap-1 md:flex">
                         {TABS.map((t) => (
-                            <Button
+                            <Link
                                 key={t.id}
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => onNav(t.id)}
-                                className={`rounded-lg px-3.5 py-2 text-xs transition-all ${active === t.id
-                                        ? 'bg-muted text-foreground'
-                                        : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                to="/"
+                                search={{ section: t.id }}
+                                replace
+                                className={`rounded-lg px-3.5 py-2 text-xs transition-all no-underline ${active === t.id
+                                    ? 'bg-muted text-foreground'
+                                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                                     }`}
+                                onClick={() => {
+                                    window.scrollTo({ top: 0, behavior: 'instant' })
+                                }}
                             >
                                 {t.label}
-                            </Button>
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -89,11 +92,16 @@ export default function NavBar({ active, onNav }: NavBarProps) {
                         const isActive = active === t.id
                         const Icon = t.icon
                         return (
-                            <button
+                            <Link
                                 key={t.id}
-                                onClick={() => onNav(t.id)}
-                                className="mobile-dock-item"
+                                to="/"
+                                search={{ section: t.id }}
+                                replace
+                                className="mobile-dock-item no-underline"
                                 aria-label={t.label}
+                                onClick={() => {
+                                    window.scrollTo({ top: 0, behavior: 'instant' })
+                                }}
                             >
                                 {isActive && (
                                     <motion.span
@@ -120,7 +128,7 @@ export default function NavBar({ active, onNav }: NavBarProps) {
                                             }`}
                                     />
                                 </motion.span>
-                            </button>
+                            </Link>
                         )
                     })}
                 </div>

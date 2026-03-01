@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { useCallback } from 'react'
 import { AnimatePresence } from 'motion/react'
 
 import NavBar from '#/components/nav-bar'
@@ -16,31 +16,35 @@ import {
   projects,
   achievements,
 } from '#/lib/portfolio-data'
+import type { Section } from '#/types'
 
-export const Route = createFileRoute('/')({ 
-  ssr: false,
-  component: Portfolio 
+export const Route = createFileRoute('/')({
+  validateSearch: (
+    search: Record<string, unknown>,
+  ): { section: Section } => {
+    const section = (search.section as Section) ?? 'home'
+    return { section }
+  },
+  component: Portfolio,
 })
 
 function Portfolio() {
-  const [active, setActive] = useState('home')
+  const { section } = Route.useSearch()
+  const navigate = useNavigate({ from: Route.fullPath })
 
-  const handleNav = useCallback((id: string) => {
-    setActive(id)
-    window.scrollTo({ top: 0, behavior: 'instant' })
-  }, [])
+  const handleNav = useCallback(
+    (id: string) => {
+      navigate({
+        search: { section: id as Section },
+        replace: true,
+      })
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    },
+    [navigate],
+  )
 
   const renderSection = () => {
-    switch (active) {
-      case 'home':
-        return (
-          <HeroSection
-            key="home"
-            personalInfo={personalInfo}
-            socialLinks={socialLinks}
-            onNav={handleNav}
-          />
-        )
+    switch (section) {
       case 'skills':
         return (
           <SkillsSection
@@ -75,7 +79,7 @@ function Portfolio() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <NavBar active={active} onNav={handleNav} />
+      <NavBar active={section} onNav={handleNav} />
       <main className="min-h-screen">
         <AnimatePresence mode="wait">{renderSection()}</AnimatePresence>
       </main>

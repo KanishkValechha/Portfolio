@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react'
+import { Link } from '@tanstack/react-router'
 import { motion, AnimatePresence } from 'motion/react'
-import { Button } from '#/components/ui/button'
+import { buttonVariants } from '#/components/ui/button'
 import type { PersonalInfo, SocialLink } from '#/lib/portfolio-data'
 import { pageVariants } from '#/lib/motion-variants'
+import { cn } from '#/lib/utils'
 
 interface HeroSectionProps {
     personalInfo: PersonalInfo
     socialLinks: SocialLink[]
-    onNav: (id: string) => void
+    onNav?: (id: string) => void
 }
 
 export default function HeroSection({
     personalInfo,
     socialLinks,
-    onNav,
 }: HeroSectionProps) {
     const { roles } = personalInfo
     const [roleIdx, setRoleIdx] = useState(0)
@@ -72,15 +73,30 @@ export default function HeroSection({
                 </p>
 
                 <div className="mb-10 flex justify-center gap-3">
-                    <Button
-                        onClick={() => onNav('projects')}
-                        className="bg-foreground text-background hover:bg-foreground/90"
+                    <Link
+                        to="/"
+                        search={{ section: 'projects' }}
+                        replace
+                        className={cn(
+                            buttonVariants({ variant: 'default' }),
+                            'bg-foreground text-background hover:bg-foreground/90 no-underline',
+                        )}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'instant' })}
                     >
                         View Projects
-                    </Button>
-                    <Button variant="outline" onClick={() => onNav('contact')}>
+                    </Link>
+                    <Link
+                        to="/"
+                        search={{ section: 'contact' }}
+                        replace
+                        className={cn(
+                            buttonVariants({ variant: 'outline' }),
+                            'no-underline',
+                        )}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'instant' })}
+                    >
                         Contact
-                    </Button>
+                    </Link>
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-5">
