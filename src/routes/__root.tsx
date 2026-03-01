@@ -1,5 +1,6 @@
 import {
   HeadContent,
+  Link,
   Outlet,
   Scripts,
   createRootRoute,
@@ -16,7 +17,23 @@ import appCss from '../styles.css?url'
 
 const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getItem('theme');var mode=(stored==='light'||stored==='dark'||stored==='auto')?stored:'auto';var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var resolved=mode==='auto'?(prefersDark?'dark':'light'):mode;var root=document.documentElement;root.classList.remove('light','dark');root.classList.add(resolved);if(mode==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',mode)}root.style.colorScheme=resolved;}catch(e){}})();`
 
+function NotFoundComponent() {
+  return (
+    <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-4">
+      <h1 className="text-4xl font-bold">404</h1>
+      <p className="text-muted-foreground">Page not found</p>
+      <Link
+        to="/"
+        className="text-primary underline-offset-4 hover:underline"
+      >
+        Return home
+      </Link>
+    </div>
+  )
+}
+
 export const Route = createRootRoute({
+  notFoundComponent: NotFoundComponent,
   head: () => ({
     meta: [
       { charSet: 'utf-8' },
