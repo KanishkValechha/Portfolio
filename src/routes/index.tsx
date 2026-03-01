@@ -17,7 +17,10 @@ import {
   achievements,
 } from '#/lib/portfolio-data'
 
-export const Route = createFileRoute('/')({ component: Portfolio })
+export const Route = createFileRoute('/')({ 
+  ssr: false,
+  component: Portfolio 
+})
 
 function Portfolio() {
   const [active, setActive] = useState('home')
