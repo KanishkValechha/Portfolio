@@ -16,7 +16,7 @@ export default function HeroSection({
 
     return (
         <motion.div
-            className="relative flex h-screen items-center justify-center px-6"
+            className="relative flex h-full items-center justify-center px-6"
             variants={pageVariants}
             initial="initial"
             animate="animate"

@@ -55,7 +55,7 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
 
   return (
-    <div className="h-svh bg-background text-foreground">
+    <div className="flex h-svh flex-col bg-background text-foreground">
       <NavBar />
       <AnimatePresence mode="wait">
         <motion.main
@@ -64,7 +64,7 @@ function RootComponent() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.2 }}
-          className="h-svh"
+          className="min-h-0 flex-1 overflow-y-auto"
         >
           <Outlet />
         </motion.main>

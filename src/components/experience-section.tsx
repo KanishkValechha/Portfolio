@@ -9,7 +9,7 @@ export default function ExperienceSection({
 }) {
     return (
         <motion.div
-            className="mx-auto h-svh max-w-5xl px-6 pt-4 pb-24 md:py-12"
+            className="mx-auto min-h-full max-w-5xl px-6 pt-4 pb-24 md:py-12"
             variants={pageVariants}
             initial="initial"
             animate="animate"
