@@ -1,12 +1,8 @@
 import { motion } from 'motion/react'
-import type { Project } from '#/lib/portfolio-data'
+import type { Project } from '#/types'
 import { pageVariants, stagger, fadeUp } from '#/lib/motion-variants'
 
-interface ProjectsSectionProps {
-    projects: Project[]
-}
-
-export default function ProjectsSection({ projects }: ProjectsSectionProps) {
+export default function ProjectsSection({ projects }: { projects: Project[] }) {
     return (
         <motion.div
             className="mx-auto min-h-screen max-w-5xl px-6 py-24 md:py-28"

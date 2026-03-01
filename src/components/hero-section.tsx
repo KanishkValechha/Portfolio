@@ -1,20 +1,17 @@
 import { Link } from '@tanstack/react-router'
 import { motion } from 'motion/react'
 import { buttonVariants } from '#/components/ui/button'
-import type { PersonalInfo, SocialLink } from '#/lib/portfolio-data'
+import type { PersonalInfo, SocialLink } from '#/types'
 import { pageVariants } from '#/lib/motion-variants'
 import { cn } from '#/lib/utils'
-
-interface HeroSectionProps {
-    personalInfo: PersonalInfo
-    socialLinks: SocialLink[]
-    onNav?: (id: string) => void
-}
 
 export default function HeroSection({
     personalInfo,
     socialLinks,
-}: HeroSectionProps) {
+}: {
+    personalInfo: PersonalInfo,
+    socialLinks: SocialLink[],
+}) {
     const { roles } = personalInfo
 
     return (
@@ -25,9 +22,8 @@ export default function HeroSection({
             animate="animate"
             exit="exit"
         >
-            {/* Dot-grid background */}
             <div
-                className="absolute inset-0 bg-[radial-gradient(circle,#1a1a1a_1px,transparent_1px)] bg-[length:24px_24px] opacity-40"
+                className="absolute inset-0 bg-[radial-gradient(circle,#1a1a1a_1px,transparent_1px)] bg-size-[24px_24px] opacity-40"
                 style={{
                     maskImage:
                         'radial-gradient(ellipse at center, black 20%, transparent 65%)',
@@ -39,7 +35,7 @@ export default function HeroSection({
                     Hello, I'm
                 </p>
 
-                <h1 className="mb-4 bg-gradient-to-b from-foreground to-muted-foreground bg-clip-text text-5xl font-bold leading-none tracking-tighter text-transparent sm:text-7xl lg:text-8xl">
+                <h1 className="mb-4 bg-linear-to-b from-foreground to-muted-foreground bg-clip-text text-5xl font-bold leading-none tracking-tighter text-transparent sm:text-7xl lg:text-8xl">
                     {personalInfo.name}
                 </h1>
 

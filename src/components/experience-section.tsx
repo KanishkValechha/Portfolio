@@ -1,14 +1,12 @@
 import { motion } from 'motion/react'
-import type { Experience } from '#/lib/portfolio-data'
+import type { Experience } from '#/types'
 import { pageVariants, stagger, fadeUp } from '#/lib/motion-variants'
-
-interface ExperienceSectionProps {
-    experiences: Experience[]
-}
 
 export default function ExperienceSection({
     experiences,
-}: ExperienceSectionProps) {
+}: {
+    experiences: Experience[],
+}) {
     return (
         <motion.div
             className="mx-auto min-h-screen max-w-5xl px-6 py-24 md:py-28"

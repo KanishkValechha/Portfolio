@@ -3,18 +3,17 @@ import { motion } from 'motion/react'
 import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
 import { Textarea } from '#/components/ui/textarea'
-import type { PersonalInfo, SocialLink } from '#/lib/portfolio-data'
+import type { PersonalInfo, SocialLink } from '#/types'
 import { pageVariants, stagger, fadeUp } from '#/lib/motion-variants'
 
-interface ContactSectionProps {
-    personalInfo: PersonalInfo
-    socialLinks: SocialLink[]
-}
 
 export default function ContactSection({
     personalInfo,
     socialLinks,
-}: ContactSectionProps) {
+}: {
+    personalInfo: PersonalInfo,
+    socialLinks: SocialLink[],
+}) {
     const [formData, setFormData] = useState({
         name: '',
         email: '',

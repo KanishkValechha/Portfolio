@@ -1,16 +1,14 @@
 import { motion } from 'motion/react'
-import type { SkillGroup, Achievement } from '#/lib/portfolio-data'
 import { pageVariants, stagger, fadeUp } from '#/lib/motion-variants'
-
-interface SkillsSectionProps {
-    skills: SkillGroup[]
-    achievements: Achievement[]
-}
+import type { Achievement, SkillGroup } from '#/types'
 
 export default function SkillsSection({
     skills,
     achievements,
-}: SkillsSectionProps) {
+}: {
+    skills: SkillGroup[],
+    achievements: Achievement[],
+}) {
     return (
         <motion.div
             className="mx-auto min-h-screen max-w-5xl px-6 py-24 md:py-28"

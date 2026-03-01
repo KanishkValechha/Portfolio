@@ -19,7 +19,6 @@ const TABS = [
 export default function NavBar() {
     return (
         <>
-            {/* ── Desktop top bar ── */}
             <motion.nav
                 className="fixed inset-x-0 top-0 z-50 py-2.5 border-b border-border bg-black/85 backdrop-blur-xl"
                 initial={{ opacity: 0, y: -16 }}
@@ -54,7 +53,6 @@ export default function NavBar() {
                 </div>
             </motion.nav>
 
-            {/* ── Mobile floating dock ── */}
             <motion.div
                 className="dock-safe-area fixed bottom-5 left-1/2 z-200 md:hidden"
                 style={{ x: '-50%' }}
