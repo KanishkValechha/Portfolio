@@ -1,4 +1,11 @@
-import type { PersonalInfo, SocialLink, SkillGroup, Experience, Project, Achievement } from '#/types'
+import type {
+  PersonalInfo,
+  SocialLink,
+  SkillGroup,
+  Experience,
+  Project,
+  Achievement,
+} from '#/types'
 
 export const personalInfo: PersonalInfo = {
   name: 'Kanishk',
@@ -10,7 +17,7 @@ export const personalInfo: PersonalInfo = {
     'Competitive Coder',
     'ML Enthusiast',
   ],
-  bio: "I am a Fullstack Developer who likes to code. I do competitive programming as a habit, love to see new technologies be it in dev or non-dev world.",
+  bio: 'I am a Fullstack Developer who likes to code. I do competitive programming as a habit, love to see new technologies be it in dev or non-dev world.',
   email: 'kanishkvalecha09@gmail.com',
 }
 
@@ -126,7 +133,7 @@ export const projects: Project[] = [
     description:
       'Responsive news app integrating Gnews API with articles from 60,000+ sources in 22 languages across 30 countries.',
     image: '/assets/AcoNews.png',
-    link: 'https://aconews-2898d.web.app/', 
+    link: 'https://aconews-2898d.web.app/',
     github: 'https://github.com/KanishkValechha/AcoNews',
     technologies: ['React', 'TailwindCSS', 'Firebase'],
   },
@@ -136,8 +143,7 @@ export const projects: Project[] = [
       'LSTM-based model to analyze and forecast stock market prices using historical data. 70%+ accuracy for directional movement prediction.',
     image: '/assets/Stock.png',
     link: 'https://github.com/KanishkValechha/Stock-Price-Prediction-Model',
-    github:
-      'https://github.com/KanishkValechha/Stock-Price-Prediction-Model',
+    github: 'https://github.com/KanishkValechha/Stock-Price-Prediction-Model',
     technologies: ['Python', 'TensorFlow', 'Streamlit'],
   },
 ]

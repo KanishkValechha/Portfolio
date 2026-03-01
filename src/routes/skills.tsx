@@ -10,11 +10,7 @@ export const Route = createFileRoute('/skills')({
 function SkillsPage() {
   return (
     <AnimatePresence mode="wait">
-      <SkillsSection
-        key="skills"
-        skills={skills}
-        achievements={achievements}
-      />
+      <SkillsSection key="skills" skills={skills} achievements={achievements} />
     </AnimatePresence>
   )
 }

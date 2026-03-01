@@ -12,7 +12,7 @@ const config = {
   printWidth: 80,
   proseWrap: 'preserve',
   arrowParens: 'always',
-  endOfLine: 'lf',
+  endOfLine: 'auto',
   plugins: ['prettier-plugin-tailwindcss'],
 }
 

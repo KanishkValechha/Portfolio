@@ -22,10 +22,7 @@ function NotFoundComponent() {
     <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-4">
       <h1 className="text-4xl font-bold">404</h1>
       <p className="text-muted-foreground">Page not found</p>
-      <Link
-        to="/"
-        className="text-primary underline-offset-4 hover:underline"
-      >
+      <Link to="/" className="text-primary underline-offset-4 hover:underline">
         Return home
       </Link>
     </div>
@@ -55,7 +52,7 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
 
   return (
-    <div className="flex h-svh flex-col bg-background text-foreground">
+    <div className="bg-background text-foreground flex h-svh flex-col">
       <NavBar />
       <AnimatePresence mode="wait">
         <motion.main
@@ -80,7 +77,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
-      <body className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]">
+      <body className="font-sans wrap-anywhere antialiased selection:bg-[rgba(79,184,178,0.24)]">
         <PostHogProvider>
           {children}
           <TanStackDevtools
