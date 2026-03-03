@@ -14,10 +14,9 @@ export const personalInfo: PersonalInfo = {
   roles: [
     'Full Stack Developer',
     'Tech Enthusiast',
-    'Competitive Coder',
-    'ML Enthusiast',
+    'AI/ML Explorer',
   ],
-  bio: 'I am a Fullstack Developer who likes to code. I do competitive programming as a habit, love to see new technologies be it in dev or non-dev world.',
+  bio: 'A tech lover who likes to build real world applications that actually have a purpose. Explores new tech be it in dev or non-dev world in his free time.',
   email: 'kanishkvalecha09@gmail.com',
 }
 
