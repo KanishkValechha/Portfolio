@@ -14,6 +14,7 @@ import PostHogProvider from '../integrations/posthog/provider'
 import NavBar from '../components/nav-bar'
 
 import appCss from '../styles.css?url'
+import LightRays from '#/components/ui/light-rays'
 
 const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getItem('theme');var mode=(stored==='light'||stored==='dark'||stored==='auto')?stored:'auto';var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var resolved=mode==='auto'?(prefersDark?'dark':'light'):mode;var root=document.documentElement;root.classList.remove('light','dark');root.classList.add(resolved);if(mode==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',mode)}root.style.colorScheme=resolved;}catch(e){}})();`
 
@@ -52,8 +53,23 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
 
   return (
-    <div className="bg-background text-foreground flex h-svh flex-col">
+    <div className="relative isolate bg-background text-foreground flex h-svh flex-col">
       <NavBar />
+      <LightRays
+        className="absolute inset-0 -z-10"
+        raysOrigin="top-center"
+        raysColor="#ffffff"
+        raysSpeed={1}
+        lightSpread={0.5}
+        rayLength={3}
+        followMouse={true}
+        mouseInfluence={0.1}
+        noiseAmount={0}
+        distortion={0}
+        pulsating={false}
+        fadeDistance={1}
+        saturation={1}
+      />
       <AnimatePresence mode="wait">
         <motion.main
           key={pathname}
