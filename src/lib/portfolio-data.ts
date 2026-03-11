@@ -131,7 +131,7 @@ export const projects: Project[] = [
     title: 'AcoNews',
     description:
       'Responsive news app integrating Gnews API with articles from 60,000+ sources in 22 languages across 30 countries.',
-    image: '/assets/AcoNews.png',
+    image: '/assets/aconews.png',
     link: 'https://aconews-2898d.web.app/',
     github: 'https://github.com/KanishkValechha/AcoNews',
     technologies: ['React', 'TailwindCSS', 'Firebase'],
