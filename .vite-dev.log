@@ -1,0 +1,28 @@
+
+> portfolio@ dev C:\Coding\projects\Portfolio
+> vite dev --port 3000 "--host" "127.0.0.1" "--port" "3000"
+
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::42069
+    at Server.setupListenHandle [as _listen2] (node:net:2008:16)
+    at listenInCluster (node:net:2065:12)
+    at Server.listen (node:net:2170:7)
+    at ServerEventBus.start (file:///C:/coding/projects/Portfolio/node_modules/.pnpm/@tanstack+devtools-event-bus@0.3.3/node_modules/@tanstack/devtools-event-bus/dist/esm/server/server.js:155:12)
+    at BasicMinimalPluginContext.configureServer (file:///C:/coding/projects/Portfolio/node_modules/.pnpm/@tanstack+devtools-vite@0.3_5dc66935e39f919314fd40405b7b3360/node_modules/@tanstack/devtools-vite/dist/esm/plugin.js:52:15)
+    at _createServer (file:///C:/coding/projects/Portfolio/node_modules/.pnpm/vite@7.3.1_@types+node@22.1_691ab9c312bf9fb31cb84bb7c063c95e/node_modules/vite/dist/node/chunks/config.js:25603:97)
+    at async CAC.<anonymous> (file:///C:/coding/projects/Portfolio/node_modules/.pnpm/vite@7.3.1_@types+node@22.1_691ab9c312bf9fb31cb84bb7c063c95e/node_modules/vite/dist/node/cli.js:572:18)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:2044:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 42069
+}
+
+Node.js v25.8.0
+ ELIFECYCLE  Command failed with exit code 1.

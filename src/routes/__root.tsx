@@ -7,6 +7,7 @@ import {
   createRootRoute,
   useRouterState,
 } from '@tanstack/react-router'
+import { Suspense, lazy } from 'react'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import { AnimatePresence, motion } from 'motion/react'
@@ -15,9 +16,19 @@ import PostHogProvider from '../integrations/posthog/provider'
 import NavBar from '../components/nav-bar'
 
 import appCss from '../styles.css?url'
-import LightRays from '#/components/ui/light-rays'
 
 const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getItem('theme');var mode=(stored==='light'||stored==='dark'||stored==='auto')?stored:'auto';var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var resolved=mode==='auto'?(prefersDark?'dark':'light'):mode;var root=document.documentElement;root.classList.remove('light','dark');root.classList.add(resolved);if(mode==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',mode)}root.style.colorScheme=resolved;}catch(e){}})();`
+
+const LightRays = lazy(() => import('#/components/ui/light-rays'))
+
+function LightRaysFallback() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+    />
+  )
+}
 
 function NotFoundComponent() {
   return (
@@ -56,29 +67,24 @@ function RootComponent() {
   return (
     <div className="bg-background text-foreground relative isolate flex h-svh flex-col">
       <NavBar />
-      <ClientOnly
-        fallback={
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+      <ClientOnly fallback={<LightRaysFallback />}>
+        <Suspense fallback={<LightRaysFallback />}>
+          <LightRays
+            className="absolute inset-0 -z-10"
+            raysOrigin="top-center"
+            raysColor="#ffffff"
+            raysSpeed={1}
+            lightSpread={0.5}
+            rayLength={3}
+            followMouse={true}
+            mouseInfluence={0.1}
+            noiseAmount={0}
+            distortion={0}
+            pulsating={false}
+            fadeDistance={1}
+            saturation={1}
           />
-        }
-      >
-        <LightRays
-          className="absolute inset-0 -z-10"
-          raysOrigin="top-center"
-          raysColor="#ffffff"
-          raysSpeed={1}
-          lightSpread={0.5}
-          rayLength={3}
-          followMouse={true}
-          mouseInfluence={0.1}
-          noiseAmount={0}
-          distortion={0}
-          pulsating={false}
-          fadeDistance={1}
-          saturation={1}
-        />
+        </Suspense>
       </ClientOnly>
       <AnimatePresence mode="wait">
         <motion.main
