@@ -5,8 +5,8 @@ Welcome to your new TanStack Start app!
 To run this application:
 
 ```bash
-pnpm install
-pnpm dev
+bun install
+bun dev
 ```
 
 # Building For Production
@@ -14,7 +14,7 @@ pnpm dev
 To build this application for production:
 
 ```bash
-pnpm build
+bun build
 ```
 
 ## Testing
@@ -22,7 +22,7 @@ pnpm build
 This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
 
 ```bash
-pnpm test
+bun test
 ```
 
 ## Styling
@@ -36,16 +36,16 @@ If you prefer not to use Tailwind CSS:
 1. Remove the demo pages in `src/routes/demo/`
 2. Replace the Tailwind import in `src/styles.css` with your own styles
 3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `pnpm add @tailwindcss/vite tailwindcss --dev`
+4. Uninstall the packages: `bun add @tailwindcss/vite tailwindcss --dev`
 
 ## Linting & Formatting
 
 This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
 
 ```bash
-pnpm lint
-pnpm format
-pnpm check
+bun lint
+bun format
+bun check
 ```
 
 ## Shadcn
@@ -53,7 +53,7 @@ pnpm check
 Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
 
 ```bash
-pnpm dlx shadcn@latest add button
+bun dlx shadcn@latest add button
 ```
 
 ## Setting up PostHog
