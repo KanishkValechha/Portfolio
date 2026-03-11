@@ -53,7 +53,7 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
 
   return (
-    <div className="relative isolate bg-background text-foreground flex h-svh flex-col">
+    <div className="bg-background text-foreground relative isolate flex h-svh flex-col">
       <NavBar />
       <LightRays
         className="absolute inset-0 -z-10"

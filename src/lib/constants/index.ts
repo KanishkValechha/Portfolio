@@ -4,11 +4,7 @@ export const personalInfo: PersonalInfo = {
   name: 'Kanishk',
   fullName: 'Kanishk Valechha',
   role: 'Full Stack Developer',
-  roles: [
-    'Full Stack Developer',
-    'Tech Enthusiast',
-    'AI/ML Explorer',
-  ],
+  roles: ['Full Stack Developer', 'Tech Enthusiast', 'AI/ML Explorer'],
   bio: 'A tech lover who likes to build real world applications that actually have a purpose. Explores new tech be it in dev or non-dev world in his free time.',
   email: 'kanishkvalecha09@gmail.com',
 }
