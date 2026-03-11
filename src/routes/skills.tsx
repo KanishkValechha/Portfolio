@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { AnimatePresence } from 'motion/react'
 import SkillsSection from '#/components/skills-section'
-import { skills, achievements } from '#/lib/portfolio-data'
+import { skills, achievements } from '#/lib/constants'
 
 export const Route = createFileRoute('/skills')({
   component: SkillsPage,

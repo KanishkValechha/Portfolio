@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { AnimatePresence } from 'motion/react'
 import ExperienceSection from '#/components/experience-section'
-import { experiences } from '#/lib/portfolio-data'
+import { experiences } from '#/lib/constants'
 
 export const Route = createFileRoute('/experience')({
   component: ExperiencePage,
