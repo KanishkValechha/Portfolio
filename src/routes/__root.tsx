@@ -1,4 +1,5 @@
 import {
+  ClientOnly,
   HeadContent,
   Link,
   Outlet,
@@ -55,21 +56,30 @@ function RootComponent() {
   return (
     <div className="bg-background text-foreground relative isolate flex h-svh flex-col">
       <NavBar />
-      <LightRays
-        className="absolute inset-0 -z-10"
-        raysOrigin="top-center"
-        raysColor="#ffffff"
-        raysSpeed={1}
-        lightSpread={0.5}
-        rayLength={3}
-        followMouse={true}
-        mouseInfluence={0.1}
-        noiseAmount={0}
-        distortion={0}
-        pulsating={false}
-        fadeDistance={1}
-        saturation={1}
-      />
+      <ClientOnly
+        fallback={
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+          />
+        }
+      >
+        <LightRays
+          className="absolute inset-0 -z-10"
+          raysOrigin="top-center"
+          raysColor="#ffffff"
+          raysSpeed={1}
+          lightSpread={0.5}
+          rayLength={3}
+          followMouse={true}
+          mouseInfluence={0.1}
+          noiseAmount={0}
+          distortion={0}
+          pulsating={false}
+          fadeDistance={1}
+          saturation={1}
+        />
+      </ClientOnly>
       <AnimatePresence mode="wait">
         <motion.main
           key={pathname}
