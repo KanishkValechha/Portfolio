@@ -8,8 +8,9 @@ import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { nitro } from 'nitro/vite'
 
-const config = defineConfig({
+const config = defineConfig(({ command }) => ({
   optimizeDeps: {
+    force: command === 'serve',
     include: ['@tanstack/react-router > @tanstack/react-store'],
   },
   plugins: [
@@ -20,6 +21,6 @@ const config = defineConfig({
     tanstackStart(),
     viteReact(),
   ],
-})
+}))
 
 export default config
