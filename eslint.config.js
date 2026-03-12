@@ -5,6 +5,15 @@ import { tanstackConfig } from '@tanstack/eslint-config'
 export default [
   ...tanstackConfig,
   {
+    ignores: [
+      'eslint.config.js',
+      'prettier.config.js',
+      'postcss.config.js',
+      '.content-collections/**',
+      '.output/**',
+    ],
+  },
+  {
     rules: {
       'import/no-cycle': 'off',
       'import/order': 'off',
@@ -13,8 +22,5 @@ export default [
       '@typescript-eslint/require-await': 'off',
       'pnpm/json-enforce-catalog': 'off',
     },
-  },
-  {
-    ignores: ['eslint.config.js', 'prettier.config.js'],
   },
 ]

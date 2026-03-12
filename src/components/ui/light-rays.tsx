@@ -143,11 +143,12 @@ const LightRays: React.FC<LightRaysProps> = ({
     }
 
     const initializeWebGL = async () => {
-      if (!containerRef.current) return
+      const container = containerRef.current
+      if (!container) return
 
       await new Promise((resolve) => setTimeout(resolve, 10))
 
-      if (!containerRef.current) return
+      if (containerRef.current !== container) return
 
       const renderer = new Renderer({
         dpr: Math.min(window.devicePixelRatio, 2),
@@ -159,10 +160,10 @@ const LightRays: React.FC<LightRaysProps> = ({
       gl.canvas.style.width = '100%'
       gl.canvas.style.height = '100%'
 
-      while (containerRef.current.firstChild) {
-        containerRef.current.removeChild(containerRef.current.firstChild)
+      while (container.firstChild) {
+        container.removeChild(container.firstChild)
       }
-      containerRef.current.appendChild(gl.canvas)
+      container.appendChild(gl.canvas)
 
       const vert = `
 attribute vec2 position;
@@ -297,7 +298,7 @@ void main() {
       meshRef.current = mesh
 
       const updatePlacement = () => {
-        if (!containerRef.current || !renderer) return
+        if (!containerRef.current) return
 
         renderer.dpr = Math.min(window.devicePixelRatio, 2)
 
@@ -359,21 +360,18 @@ void main() {
 
         window.removeEventListener('resize', updatePlacement)
 
-        if (renderer) {
-          try {
-            const canvas = renderer.gl.canvas
-            const loseContextExt =
-              renderer.gl.getExtension('WEBGL_lose_context')
-            if (loseContextExt) {
-              loseContextExt.loseContext()
-            }
-
-            if (canvas && canvas.parentNode) {
-              canvas.parentNode.removeChild(canvas)
-            }
-          } catch (error) {
-            console.warn('Error during WebGL cleanup:', error)
+        try {
+          const canvas = renderer.gl.canvas
+          const loseContextExt = renderer.gl.getExtension('WEBGL_lose_context')
+          if (loseContextExt) {
+            loseContextExt.loseContext()
           }
+
+          if (canvas.parentNode) {
+            canvas.parentNode.removeChild(canvas)
+          }
+        } catch (error) {
+          console.warn('Error during WebGL cleanup:', error)
         }
 
         rendererRef.current = null
