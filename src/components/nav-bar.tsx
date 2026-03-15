@@ -13,6 +13,7 @@ const TABS = [
 export default function NavBar() {
   return (
     <>
+      {/* Desktop Navigation */}
       <motion.nav
         className="inset-x-0 top-0 z-50 py-2.5"
         initial={{ opacity: 0, y: -16 }}
@@ -27,27 +28,52 @@ export default function NavBar() {
             K.
           </Link>
 
-          <div className="hidden gap-1 md:flex">
-            {TABS.map((t) => (
-              <Link
-                key={t.id}
-                to={t.path}
-                className="rounded-lg px-3.5 py-2 text-xs no-underline transition-all"
-                activeProps={{
-                  className: 'bg-muted text-foreground no-underline',
-                }}
-                inactiveProps={{
-                  className:
-                    'text-muted-foreground hover:bg-muted hover:text-foreground no-underline',
-                }}
-              >
-                {t.label}
-              </Link>
-            ))}
+          {/* Desktop Liquid Glass Navbar */}
+          <div className="liquid-glass-container hidden md:flex">
+            <div className="relative flex items-center gap-0.5 rounded-2xl p-1.5">
+              {TABS.map((t) => {
+                const Icon = t.icon
+                return (
+                  <Link
+                    key={t.id}
+                    to={t.path}
+                    className="liquid-glass-item relative z-10 flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs no-underline transition-colors duration-300"
+                    aria-label={t.label}
+                    children={({ isActive }) => (
+                      <>
+                        {isActive && (
+                          <motion.span
+                            className="liquid-glass-pill absolute inset-0 rounded-xl"
+                            layoutId="desktop-liquid-pill"
+                            transition={{
+                              type: 'spring',
+                              stiffness: 400,
+                              damping: 30,
+                              mass: 1,
+                            }}
+                          />
+                        )}
+                        <span
+                          className={`relative z-10 flex items-center gap-2 transition-all duration-300 ${
+                            isActive
+                              ? 'text-white'
+                              : 'text-white/50 hover:text-white/80'
+                          }`}
+                        >
+                          <Icon className="h-4 w-4" strokeWidth={1.5} />
+                          <span className="font-medium">{t.label}</span>
+                        </span>
+                      </>
+                    )}
+                  />
+                )
+              })}
+            </div>
           </div>
         </div>
       </motion.nav>
 
+      {/* Mobile Liquid Glass Dock */}
       <motion.div
         className="dock-safe-area fixed bottom-5 left-1/2 z-200 md:hidden"
         style={{ x: '-50%' }}
@@ -59,40 +85,48 @@ export default function NavBar() {
           ease: [0.16, 1, 0.3, 1],
         }}
       >
-        <div className="flex items-center gap-1 rounded-2xl border border-white/10 bg-black/70 px-2.5 py-1.5 backdrop-blur-xl backdrop-saturate-150">
+        <div className="liquid-glass-nav flex items-center gap-0.5 rounded-[22px] p-1.5">
           {TABS.map((t) => {
             const Icon = t.icon
             return (
               <Link
                 key={t.id}
                 to={t.path}
-                className="mobile-dock-item relative flex h-11 w-12 cursor-pointer items-center justify-center rounded-xl bg-transparent no-underline transition-transform duration-100 active:scale-90"
+                className="liquid-glass-item relative flex h-12 w-13 cursor-pointer items-center justify-center rounded-2xl bg-transparent no-underline transition-transform duration-100 active:scale-90"
                 aria-label={t.label}
                 children={({ isActive }) => (
                   <>
                     {isActive && (
                       <motion.span
-                        className="absolute inset-0 rounded-xl border border-white/5 bg-white/10"
-                        layoutId="dock-pill"
+                        className="liquid-glass-pill absolute inset-0 rounded-2xl"
+                        layoutId="mobile-liquid-pill"
                         transition={{
                           type: 'spring',
-                          stiffness: 500,
-                          damping: 35,
+                          stiffness: 380,
+                          damping: 28,
+                          mass: 1.2,
                         }}
                       />
                     )}
                     <motion.span
                       className="relative z-10 flex items-center justify-center"
-                      animate={{ scale: isActive ? 1.05 : 1 }}
+                      animate={{
+                        scale: isActive ? 1.1 : 1,
+                        y: isActive ? -1 : 0,
+                      }}
                       transition={{
                         type: 'spring',
-                        stiffness: 500,
-                        damping: 30,
+                        stiffness: 400,
+                        damping: 25,
                       }}
                     >
                       <Icon
-                        className={`h-5 w-5 transition-colors duration-200 ${isActive ? 'text-white' : 'text-white/30'}`}
-                        strokeWidth={1.5}
+                        className={`h-5 w-5 transition-all duration-300 ${
+                          isActive
+                            ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]'
+                            : 'text-white/40'
+                        }`}
+                        strokeWidth={isActive ? 2 : 1.5}
                       />
                     </motion.span>
                   </>
