@@ -73,69 +73,69 @@ export default function NavBar() {
         </div>
       </motion.nav>
 
-      {/* Mobile Liquid Glass Dock */}
-      <motion.div
-        className="dock-safe-area fixed bottom-5 left-1/2 z-200 md:hidden"
-        style={{ x: '-50%' }}
-        initial={{ opacity: 0, y: 30, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{
-          duration: 0.55,
-          delay: 0.15,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-      >
-        <div className="liquid-glass-nav flex items-center gap-0.5 rounded-[22px] p-1.5">
-          {TABS.map((t) => {
-            const Icon = t.icon
-            return (
-              <Link
-                key={t.id}
-                to={t.path}
-                className="liquid-glass-item relative flex h-12 w-13 cursor-pointer items-center justify-center rounded-2xl bg-transparent no-underline transition-transform duration-100 active:scale-90"
-                aria-label={t.label}
-                children={({ isActive }) => (
-                  <>
-                    {isActive && (
+      {/* Mobile Nav */}
+      <div className="dock-safe-area fixed inset-x-0 bottom-5 z-200 flex justify-center md:hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 0.55,
+            delay: 0.15,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        >
+          <div className="liquid-glass-nav flex items-center gap-0.5 rounded-[22px] p-1.5">
+            {TABS.map((t) => {
+              const Icon = t.icon
+              return (
+                <Link
+                  key={t.id}
+                  to={t.path}
+                  className="liquid-glass-item relative flex h-12 w-13 cursor-pointer items-center justify-center rounded-2xl bg-transparent no-underline transition-transform duration-100 active:scale-90"
+                  aria-label={t.label}
+                  children={({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <motion.span
+                          className="liquid-glass-pill absolute inset-0 rounded-2xl"
+                          layoutId="mobile-liquid-pill"
+                          transition={{
+                            type: 'spring',
+                            stiffness: 380,
+                            damping: 28,
+                            mass: 1.2,
+                          }}
+                        />
+                      )}
                       <motion.span
-                        className="liquid-glass-pill absolute inset-0 rounded-2xl"
-                        layoutId="mobile-liquid-pill"
+                        className="relative z-10 flex items-center justify-center"
+                        animate={{
+                          scale: isActive ? 1.1 : 1,
+                          y: isActive ? -1 : 0,
+                        }}
                         transition={{
                           type: 'spring',
-                          stiffness: 380,
-                          damping: 28,
-                          mass: 1.2,
+                          stiffness: 400,
+                          damping: 25,
                         }}
-                      />
-                    )}
-                    <motion.span
-                      className="relative z-10 flex items-center justify-center"
-                      animate={{
-                        scale: isActive ? 1.1 : 1,
-                        y: isActive ? -1 : 0,
-                      }}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 400,
-                        damping: 25,
-                      }}
-                    >
-                      <Icon
-                        className={`h-5 w-5 transition-all duration-300 ${
-                          isActive
-                            ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]'
-                            : 'text-white/40'
-                        }`}
-                        strokeWidth={isActive ? 2 : 1.5}
-                      />
-                    </motion.span>
-                  </>
-                )}
-              />
-            )
-          })}
-        </div>
-      </motion.div>
+                      >
+                        <Icon
+                          className={`h-5 w-5 transition-all duration-300 ${
+                            isActive
+                              ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]'
+                              : 'text-white/40'
+                          }`}
+                          strokeWidth={isActive ? 2 : 1.5}
+                        />
+                      </motion.span>
+                    </>
+                  )}
+                />
+              )
+            })}
+          </div>
+        </motion.div>
+      </div>
     </>
   )
 }
