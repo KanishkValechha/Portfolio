@@ -10,7 +10,10 @@ export const personalInfo: PersonalInfo = {
 }
 
 export const socialLinks: SocialLink[] = [
-  { name: 'GitHub', url: 'https://github.com/KanishkValechha' },
+  { 
+    name: 'GitHub', 
+    url: 'https://github.com/KanishkValechha' 
+  },
   {
     name: 'LinkedIn',
     url: 'https://www.linkedin.com/in/kanishk-valechha/',
@@ -27,7 +30,10 @@ export const socialLinks: SocialLink[] = [
     name: 'CodeChef',
     url: 'https://www.codechef.com/users/kanishk099',
   },
-  { name: 'Twitter', url: 'https://x.com/kanishkvalecha' },
+  { 
+    name: 'Twitter', 
+    url: 'https://x.com/kanishkvalecha' 
+  },
 ]
 
 export { projects } from './projects'
