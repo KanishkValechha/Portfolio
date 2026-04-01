@@ -2,6 +2,16 @@ import type { Experience } from '#/types'
 
 export const experiences: Experience[] = [
   {
+
+    role: 'Founding  Engineer',
+    company: 'ASR Aviation',
+    period: 'Feb 2025 - April 2025',
+    description:
+      'As the founding engineer, I was responsible for the complete frontend and backend development of the company website. I was also responsible for developing and maintaining company\'s core products, like the whole affiliate management suite, wallet for billing merchants, whatsapp tech provider integrations, etc.',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'GSAP'],
+    link: 'https://asraviation.com/',
+  },
+  {
     role: 'Fullstack Developer Intern',
     company: 'ASR Aviation',
     period: 'Feb 2025 - April 2025',
