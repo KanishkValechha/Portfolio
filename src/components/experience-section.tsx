@@ -32,7 +32,7 @@ export default function ExperienceSection({
             >
               <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
                 <div>
-                  <h3 className="text-lg font-semibold">{exp.role}</h3>
+                <h3 className="text-lg font-semibold">{exp.role}</h3>
                   <p className="text-muted-foreground mt-0.5 text-sm">
                     {exp.company}
                   </p>

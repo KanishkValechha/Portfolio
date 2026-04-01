@@ -3,8 +3,17 @@ import type { Experience } from '#/types'
 export const experiences: Experience[] = [
   {
     role: 'Fullstack Developer Intern',
+    company: 'ASR Aviation',
+    period: 'Feb 2025 - April 2025',
+    description:
+      ' Led the complete frontend modernization of the company website, executing a crucial port from a legacy JavaScript codebase to a more robust TypeScript architecture. Redesigned the whole UI/UX of the website with better visuals and used GSAP library for better animations.',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'GSAP'],
+    link: 'https://asraviation.com/',
+  },
+  {
+    role: 'Fullstack Developer Intern',
     company: 'Software Development Centre, MUJ',
-    period: 'Jan 2025 — Present',
+    period: 'Jan 2025 — Feb 2025',
     description:
       'Developing a Wall of Fame website for college using Next.js and MongoDB, creating an interactive platform to showcase student achievements.',
     technologies: ['Next.js', 'MongoDB'],
@@ -18,14 +27,5 @@ export const experiences: Experience[] = [
       'Led the development of their new website. Implemented complex visual animations for improved user experience. Optimized website performance and improved SEO.',
     technologies: ['Astro', 'Tailwind CSS', 'Motion'],
     link: 'https://tech-pi-website.vercel.app/',
-  },
-  {
-    role: 'Web Developer',
-    company: 'Cyber Space Club',
-    period: 'May 2024 — Present',
-    description:
-      'Planned the overhaul of the club website, utilizing Next.js to enhance dynamic content delivery. Reduced initial load time by 50% and improved SEO by 25%.',
-    technologies: ['Next.js', 'Tailwind CSS'],
-    link: 'https://csc-24.vercel.app',
   },
 ]
