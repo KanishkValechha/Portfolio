@@ -86,9 +86,7 @@ function MultiPositionCard({ exp }: { exp: Experience }) {
       <div className="mb-5 flex flex-wrap items-start justify-between gap-2">
         <div>
           <h3 className="text-lg font-semibold">{exp.company}</h3>
-          <p className="text-muted-foreground mt-0.5 flex items-center gap-2 text-sm">
-            <span>{exp.positions!.length} roles</span>
-            <span className="text-zinc-700">·</span>
+          <p className="text-muted-foreground mt-0.5 text-sm">
             <span>{exp.period}</span>
           </p>
         </div>
