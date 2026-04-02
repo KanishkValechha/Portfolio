@@ -13,6 +13,16 @@ const config = defineConfig(({ command }) => ({
     force: command === 'serve',
     include: ['@tanstack/react-router > @tanstack/react-store'],
   },
+  server: {
+    host: '127.0.0.1',
+    port: 4000,
+    strictPort: true,
+  },
+  preview: {
+    host: '127.0.0.1',
+    port: 4000,
+    strictPort: true,
+  },
   plugins: [
     devtools(),
     nitro({ rollupConfig: { external: [/^@sentry\//] } }),
