@@ -2,14 +2,29 @@ import type { Experience } from '#/types'
 
 export const experiences: Experience[] = [
   {
-
-    role: 'Founding  Engineer',
+    role: 'Founding Engineer',
     company: 'Referrush',
     period: 'March 2025 - Present',
     description:
-      'As the founding engineer, I was responsible for the complete frontend and backend development of the company website. I was also responsible for developing and maintaining company\'s core products, like the whole affiliate management suite, wallet for billing merchants, whatsapp tech provider integrations, etc.',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'GSAP'],
-    link: 'https://asraviation.com/',
+      'Building and scaling Referrush from the ground up — from early-stage development to leading the full technical direction of the product.',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js'],
+    link: 'https://referrush.com/',
+    positions: [
+      {
+        role: 'Founding Engineer',
+        period: 'Aug 2025 - Present',
+        description:
+          'Promoted to founding engineer, leading the complete technical direction of the product. Architecting and building core products including the affiliate management suite, merchant billing wallet, and WhatsApp tech provider integrations.',
+        technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js'],
+      },
+      {
+        role: 'Full Stack Intern',
+        period: 'March 2025 - Aug 2025',
+        description:
+          'Joined as a full stack intern responsible for the frontend and backend development of the company website. Built early-stage product features and contributed to the foundation of the platform.',
+        technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+      },
+    ],
   },
   {
     role: 'Fullstack Developer Intern',

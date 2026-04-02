@@ -19,6 +19,13 @@ export interface SkillGroup {
   items: string[]
 }
 
+export interface ExperiencePosition {
+  role: string
+  period: string
+  description: string
+  technologies: string[]
+}
+
 export interface Experience {
   role: string
   company: string
@@ -26,6 +33,7 @@ export interface Experience {
   description: string
   technologies: string[]
   link?: string
+  positions?: ExperiencePosition[]
 }
 
 export interface Project {
