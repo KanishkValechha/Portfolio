@@ -14,15 +14,15 @@ export const experiences: Experience[] = [
         role: 'Founding Engineer',
         period: 'Aug 2025 - Present',
         description:
-          'Promoted to founding engineer, leading the complete technical direction of the product. Architecting and building core products including the affiliate management suite, merchant billing wallet, and WhatsApp tech provider integrations.',
-        technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js'],
+          'Promoted to founding engineer, leading the complete technical direction of the product. Architecting and building core products including the affiliate management suite, merchant billing wallet, affiliate mobile app, and WhatsApp tech provider integrations.',
+        technologies: ['Next.js', 'TypeScript', 'Node.js', 'Firebase', 'GCP', 'React Native', 'Convex'],
       },
       {
         role: 'Full Stack Intern',
         period: 'March 2025 - Aug 2025',
         description:
-          'Joined as a full stack intern responsible for the frontend and backend development of the company website. Built early-stage product features and contributed to the foundation of the platform.',
-        technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+          'Joined as a full stack intern responsible for tools for help merchants like Shopify Theme Detector, SEO Score Checker. Later on started builing the affilate management suite from scratch. ',
+        technologies: ['Next.js', 'TypeScript', 'Node.js', 'Firebase', 'GCP'],
       },
     ],
   },
